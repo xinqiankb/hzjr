@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import home from './../../utity/home/home.js'
+import home from './../../../utity/home/home.js'
 export default {
   name: 'home',
   data() {

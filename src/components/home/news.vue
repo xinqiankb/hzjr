@@ -20,7 +20,7 @@
                         <span>"Jun"
                             <br> "2017"</span>
                         <div>
-                            <img src="./../../static/img/test.jpg" alt="">
+                            <img src="./../../../static/img/test.jpg" alt="">
                         </div>
                     </div>
                 </li>
