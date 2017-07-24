@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header-navbar :columns="columns" :log="log" :banner="banner"></Header-navbar>
+    <Header-navbar :columns="columns" :logo="logo" :banner="banner"></Header-navbar>
     <about :aboutImg="aboutImg" :aboutUs="aboutUs"></about>
     <projects :projectsBg="projectsBg" :projectsImg="projectsImg" :projectsTitle="projectsTitle"></projects>
     <news :newsBg="newsBg" :news="news"></news>
@@ -11,41 +11,23 @@
 </template>
 
 <script>
-import HeaderNavbar from './header'
-import about from './about'
-import projects from './projects'
-import news from './news'
-import club from './club'
-import forum from './forum'
-import footerBox from './footer'
-import log from './../../static/img/logo.jpg'
-import banner from './../../static/img/banner.png'
-import aboutImg from './../../static/img/about.png'
-import aboutUs from './../../static/img/aboutUs.png'
-import projectsBg from './../../static/img/projects.png'
-import projectsImg from './../../static/img/projectsImg.png'
-import projectsTitle from './../../static/img/projectsTitle.png'
-import newsBg from './../../static/img/news-bg.png'
-import clubBg from './../../static/img/club-bg.png'
-import clubTitle from './../../static/img/clubTitle.png'
-import forumClubBg from './../../static/img/forumClubBg.png'
-import forumClubTitle from './../../static/img/forumClubTitle.png'
+import home from './../../utity/home/home.js'
 export default {
   name: 'home',
   data() {
     return {
-      log: log,
-      banner: banner,
-      aboutImg: aboutImg,
-      aboutUs: aboutUs,
-      projectsBg: projectsBg,
-      projectsImg: projectsImg,
-      projectsTitle: projectsTitle,
-      newsBg: newsBg,
-      clubBg: clubBg,
-      clubTitle: clubTitle,
-      forumClubBg: forumClubBg,
-      forumClubTitle: forumClubTitle,
+      logo: home.logo,
+      banner: home.banner,
+      aboutImg: home.aboutImg,
+      aboutUs: home.aboutUs,
+      projectsBg: home.projectsBg,
+      projectsImg: home.projectsImg,
+      projectsTitle: home.projectsTitle,
+      newsBg: home.newsBg,
+      clubBg: home.clubBg,
+      clubTitle: home.clubTitle,
+      forumClubBg: home.forumClubBg,
+      forumClubTitle: home.forumClubTitle,
       columns: [{
         name: '首页'
       },{
@@ -75,13 +57,13 @@ export default {
     }
   },
   components: {
-    HeaderNavbar,
-    about,
-    projects,
-    news,
-    club,
-    forum,
-    footerBox
+    HeaderNavbar:home.HeaderNavbar,
+    about:home.about,
+    projects:home.projects,
+    news:home.news,
+    club:home.club,
+    forum:home.forum,
+    footerBox: home.footerBox
   }
 }
 </script>
