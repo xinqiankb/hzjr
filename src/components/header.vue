@@ -3,8 +3,11 @@
         <div class="nav">
             <img :src="logo" alt="">
             <ul class="nav-bar">
-                <li @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index}">
-                    <a href="#">{{ item.name }}</a>
+                <li @mousemove="activeClass(index)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-bind:style="{ top:top+'px' }">
+                    <router-link :to="{name:'article',params:{id:index}}">{{ item.name }}</router-link>
+                    <div class="sub-column" v-show="active==index" v-bind:style="{ background:color }">
+                        <div class="sub-title" v-for="sub in subColumn">{{ sub.name }}</div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -19,7 +22,33 @@ export default {
     props: ['columns', 'logo', 'banner'],
     data() {
         return {
-            active: '0'
+            active: '0',
+            subColumn: [
+                {
+                    name: '测试'
+                },
+                 {
+                    name: '测试'
+                },
+                 {
+                    name: '测试'
+                }
+            ]
+        }
+    },
+    computed: {
+        top: function () {
+            if (this.subColumn.length != 0) {
+                return -(this.subColumn.length * 35 + 35)
+            }
+        },
+        color: function () {
+            if (this.subColumn.length ==0) {
+                return 'transparent'
+            }
+            else {
+                return '#FFF'
+            }
         }
     },
     methods: {
@@ -33,7 +62,7 @@ export default {
 <style scoped>
 .nav {
     width: 1240px;
-    height: 106px;
+    height: 300px;
     overflow: hidden;
     position: relative;
     margin: 0 auto
@@ -49,16 +78,14 @@ export default {
     display: inline-block;
     position: absolute;
     right: 0rem;
-    top: 1.6rem;
+    top: 3rem;
 }
 
 .nav-bar li {
     display: inline-block;
-    margin-left: 2rem;
-    font-size: 14px;
-    height: 18px;
+    font-size: 15px;
     color: #666;
-    height: 60px;
+    height: 54px;
 }
 
 a {
@@ -68,6 +95,11 @@ a {
     border-right: 1px solid #666;
     padding-right: 2rem;
     margin-left: 1.2rem;
+    padding-left: 0.9rem;
+}
+
+.banner {
+    margin-top: -12.1rem;
 }
 
 .banner img {
@@ -77,9 +109,32 @@ a {
 
 .active {
     border-bottom: 4px solid #cd934f;
+    /* position: relative;
+    top: 0.2rem; */
+}
+
+.no-active {
+    position: relative;
 }
 
 .nav-bar li:hover {
     border-bottom: 4px solid #cd934f;
+}
+
+.sub-column {
+    text-align: center;
+    margin-top: 2.3rem;
+    padding: 15px;
+    padding-bottom: 20px;
+}
+
+.sub-title {
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.sub-title:hover {
+    color: #cd934f
 }
 </style>
