@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="nav">
-            <img :src="log" alt="">
+            <img :src="logo" alt="">
             <ul class="nav-bar">
                 <li @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index}">
                     <a href="#">{{ item.name }}</a>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    props: ['columns', 'log', 'banner'],
+    props: ['columns', 'logo', 'banner'],
     data() {
         return {
             active: '0'
