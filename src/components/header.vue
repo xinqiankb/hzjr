@@ -19,18 +19,29 @@
 
 <script>
 export default {
-    props: ['columns', 'logo', 'banner'],
+    props: ['logo', 'banner'],
     data() {
         return {
             active: '0',
+            columns: [{
+                name: '首页'
+            }, {
+                name: '关于融熠'
+            }, {
+                name: '投资管理'
+            }, {
+                name: '金融学院'
+            }, {
+                name: '招贤纳士'
+            }],
             subColumn: [
                 {
                     name: '测试'
                 },
-                 {
+                {
                     name: '测试'
                 },
-                 {
+                {
                     name: '测试'
                 }
             ]
@@ -43,7 +54,7 @@ export default {
             }
         },
         color: function () {
-            if (this.subColumn.length ==0) {
+            if (this.subColumn.length == 0) {
                 return 'transparent'
             }
             else {
