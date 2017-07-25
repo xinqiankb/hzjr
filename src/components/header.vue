@@ -18,36 +18,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-    props: ['logo', 'banner'],
     data() {
         return {
-            active: '0',
-            columns: [{
-                name: '首页'
-            }, {
-                name: '关于融熠'
-            }, {
-                name: '投资管理'
-            }, {
-                name: '金融学院'
-            }, {
-                name: '招贤纳士'
-            }],
-            subColumn: [
-                {
-                    name: '测试'
-                },
-                {
-                    name: '测试'
-                },
-                {
-                    name: '测试'
-                }
-            ]
+            active: '0'
         }
     },
     computed: {
+        ...mapState({
+            // logo
+            logo: state => state.logo,
+            // banner
+            banner: state => state.banner,
+            // 头部导航1级栏目
+            columns:state => state.columns,
+            // 头部导航2级栏目
+            subColumn: state => state.subColumn
+        }),
         top: function () {
             if (this.subColumn.length != 0) {
                 return -(this.subColumn.length * 35 + 35)
@@ -64,7 +52,7 @@ export default {
     },
     methods: {
         activeClass(i) {
-            this.active = i
+            this.active = i;
         }
     }
 }

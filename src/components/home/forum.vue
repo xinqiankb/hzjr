@@ -1,20 +1,20 @@
 <template>
   <div class="forum">
-      <div class="forum-club-cont" v-for="item in forumColumns">
+      <div class="forum-club-cont" v-for="item in forumColumns.content">
           <div>
-              <img :src="forumClubBg" alt="">
+              <img :src="item.imgUrl" alt="">
           </div>
           <div>
-              <img :src="forumClubTitle" alt="">
+              <img :src="forumColumns.logo" alt="">
               <p>{{ item.name }}</p>
-              <a href="">MORE ></a>
+              <a :href="item.url">MORE ></a>
           </div>
       </div>
   </div>
 </template>
 <script>
 export default {
-  props: ['forumClubBg','forumClubTitle','forumColumns']
+  props: ['forumColumns']
 }
 </script>
 
