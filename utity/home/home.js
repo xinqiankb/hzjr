@@ -1,12 +1,12 @@
 import HeaderNavbar from './../../src/components/header'
 import about from './../../src/components/home/about'
-import projects from './../../src/components/home/projects'
+// import projects from './../../src/components/home/projects'
 import news from './../../src/components/home/news'
-import club from './../../src/components/home/club'
+// import club from './../../src/components/home/club'
 import forum from './../../src/components/home/forum'
 import footerBox from './../../src/components/footer'
 import logo from './../../static/img/logo.jpg'
-import banner from './../../static/img/banner.png'
+import banner from './../../static/img/banner.jpg'
 import aboutImg from './../../static/img/about.png'
 import aboutUs from './../../static/img/aboutUs.png'
 import projectsBg from './../../static/img/projects.png'
@@ -20,9 +20,7 @@ import forumClubTitle from './../../static/img/forumClubTitle.png'
 export default {
     HeaderNavbar,
     about,
-    projects,
     news,
-    club,
     forum,
     footerBox,
     logo,

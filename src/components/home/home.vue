@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <Header-navbar :columns="columns" :logo="logo" :banner="banner"></Header-navbar>
+    <Header-navbar :logo="logo" :banner="banner"></Header-navbar>
     <about :aboutImg="aboutImg" :aboutUs="aboutUs"></about>
-    <projects :projectsBg="projectsBg" :projectsImg="projectsImg" :projectsTitle="projectsTitle"></projects>
+    <!-- <projects :projectsBg="projectsBg" :projectsImg="projectsImg" :projectsTitle="projectsTitle"></projects> -->
     <news :newsBg="newsBg" :news="news"></news>
-    <club :clubBg="clubBg" :clubTitle="clubTitle"></club>
-    <forum :forumClubBg="forumClubBg" :forumClubTitle="forumClubTitle"></forum>
+    <!-- <club :clubBg="clubBg" :clubTitle="clubTitle"></club> -->
+    <forum :forumClubBg="forumClubBg" :forumClubTitle="forumClubTitle" :forumColumns="forumColumns"></forum>
     <footerBox></footerBox>
   </div>
 </template>
@@ -28,18 +28,12 @@ export default {
       clubTitle: home.clubTitle,
       forumClubBg: home.forumClubBg,
       forumClubTitle: home.forumClubTitle,
-      columns: [{
-        name: '首页'
+      forumColumns: [{
+        name: '投资管理'
       },{
-        name: '关于融熠'
+        name: '金融学院'
       },{
-        name: '精选项目'
-      },{
-        name: '资产配置管家'
-      },{
-        name: '财富大讲堂'
-      },{
-        name: '管家俱乐部'
+        name: '融熠之家'
       }],
       news: [{
         name: '景泉财富厦门分公司隆重开业',
@@ -59,9 +53,7 @@ export default {
   components: {
     HeaderNavbar:home.HeaderNavbar,
     about:home.about,
-    projects:home.projects,
     news:home.news,
-    club:home.club,
     forum:home.forum,
     footerBox: home.footerBox
   }
