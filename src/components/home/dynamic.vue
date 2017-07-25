@@ -1,11 +1,11 @@
 <template>
     <div class="news-content">
-        <div class="news-bg" v-bind:style="{ background: 'url('+newsBg+')' }">
+        <div class="news-bg" v-bind:style="{ background: 'url('+news.imgUrl+')' }">
             <p></p>
         </div>
         <div class="news-list">
             <ul>
-                <li v-for="item in news">
+                <li v-for="item in news.list">
                     <div>
                         <p>
                             <a href="" class="t1">{{ item.name }}</a>
@@ -20,7 +20,7 @@
                         <span>"Jun"
                             <br> "2017"</span>
                         <div>
-                            <img src="./../../../static/img/test.jpg" alt="">
+                            <img :src="item.pic" alt="">
                         </div>
                     </div>
                 </li>
@@ -31,11 +31,9 @@
 
 <script>
 export default {
-    props: ['newsBg','news'],
+    props: ['news'],
     data() {
-        return {
-
-        }
+        return {}
     }
 }
 </script>
