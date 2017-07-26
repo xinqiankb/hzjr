@@ -1,11 +1,7 @@
 export default {
-    //设置头部导航1级栏目
+    //设置头部导航栏目
     set_columns (state,payload) {
         state.columns = payload;
-    },
-    //设置头部导航2级栏目
-    set_subColumn (state,payload) {
-        state.subColumn = payload;
     },
     //设置logo
     set_logo (state,payload) {

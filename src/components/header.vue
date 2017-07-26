@@ -3,10 +3,10 @@
         <div class="nav">
             <img :src="logo" alt="">
             <ul class="nav-bar">
-                <li @mousemove="activeClass(index)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-bind:style="{ top:top+'px' }">
+                <li @mousemove="activeClass(index)" @click="activeClass(index)" v-for="(item,index) in columns.columns" :class="{'active':active==index,'no-active':active!=index}" v-bind:style="{ top:top+'px' }">
                     <router-link :to="{name:'article',params:{id:index}}">{{ item.name }}</router-link>
                     <div class="sub-column" v-show="active==index" v-bind:style="{ background:color }">
-                        <div class="sub-title" v-for="sub in subColumn">{{ sub.name }}</div>
+                        <div class="sub-title" v-for="sub in columns.subColumns">{{ sub.name }}</div>
                     </div>
                 </li>
             </ul>
@@ -31,18 +31,16 @@ export default {
             logo: state => state.logo,
             // banner
             banner: state => state.banner,
-            // 头部导航1级栏目
+            // 头部导航栏目
             columns:state => state.columns,
-            // 头部导航2级栏目
-            subColumn: state => state.subColumn
         }),
         top: function () {
-            if (this.subColumn.length != 0) {
-                return -(this.subColumn.length * 35 + 35)
+            if (this.columns.subColumns.length != 0) {
+                return -(this.columns.subColumns.length * 35 + 35)
             }
         },
         color: function () {
-            if (this.subColumn.length == 0) {
+            if (this.columns.subColumns.length == 0) {
                 return 'transparent'
             }
             else {
