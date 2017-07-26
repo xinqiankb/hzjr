@@ -1,17 +1,19 @@
 <template>
 	<div class="article" id="article">
 		<HeaderNavbar></HeaderNavbar>
-		<Content></Content>
+		<Artcontent></Artcontent>
+		<footerBox></footerBox>
 	</div>
 </template>
 
 <script>
-	import Content from './content'
+	import Artcontent from './content'
 	import HeaderNavbar from './../header'
+	import footerBox from './../footer'
 	export default{
 		name:'article',
 		components:{
-			Content,HeaderNavbar
+			Artcontent,HeaderNavbar,footerBox
 		},
 		data(){
 			return {

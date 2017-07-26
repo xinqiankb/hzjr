@@ -1,12 +1,12 @@
 <template>
-	<div id="content" class="content artcon">
+	<div id="Artcontent" class="content artcon">
 		{{article.name}}
 	</div>
 </template>
 
 <script>
 	export default{
-		name:'content',
+		name:'Artcontent',
 		data(){
 			return {
 				article:{

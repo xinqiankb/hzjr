@@ -1,10 +1,10 @@
 import ajax from './../api'
 
 export default {
-    //获取头部导航1级栏目
-    get_columns (context) {
-        context.commit('set_columns',
-            [
+    //获取头部导航栏目
+    get_columns(context) {
+        context.commit('set_columns', {
+            'columns': [
                 {
                     name: '首页'
                 }, {
@@ -16,13 +16,8 @@ export default {
                 }, {
                     name: '招贤纳士'
                 }
-            ]
-        );
-    },
-    //获取头部导航2级栏目
-    get_subColumn (context) {
-        context.commit('set_subColumn',
-            [
+            ],
+            'subColumns': [
                 {
                     name: '测试'
                 },
@@ -33,18 +28,26 @@ export default {
                     name: '测试'
                 }
             ]
-        );
+        });
+        ajax.get(API+'?r=index%2Ftest')
+            .then(data => {
+                console.log(data);
+                //context.commit('set_columns',data)
+            })
+            .catch(err => {
+                console.log(err);
+            })
     },
     //获取logo
-    get_logo (context) {
+    get_logo(context) {
         context.commit('set_logo', './../static/img/logo.jpg');
     },
     //获取banner
-    get_banner (context) {
+    get_banner(context) {
         context.commit('set_banner', './../static/img/banner.jpg');
     },
     //获取关于我们内容
-    get_aboutUs (context) {
+    get_aboutUs(context) {
         context.commit('set_aboutUs', {
             // logo
             'logo': './../static/img/aboutUs.png',
@@ -65,7 +68,7 @@ export default {
         })
     },
     //获取最新动态
-    get_news (context) {
+    get_news(context) {
         context.commit('set_news', {
             'imgUrl': './../static/img/news-bg.png',
             'list': [{
@@ -88,7 +91,7 @@ export default {
         })
     },
     //获取footer上面的三个栏目
-    get_forumColumns (context) {
+    get_forumColumns(context) {
         context.commit('set_forumColumns', {
             logo: './../static/img/forumClubTitle.png',
             'content': [{
@@ -105,9 +108,5 @@ export default {
                 url: ''
             }]
         })
-    },
-
-    test (context) {
-        console.log(ajax);
     }
 }

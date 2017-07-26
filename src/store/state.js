@@ -1,8 +1,6 @@
 export default {
-    // 头部导航1级栏目
+    // 头部导航栏目
     columns: '',
-    // 头部导航2级栏目
-    subColumn: '',
     // logo
     logo: '',
     // banner
