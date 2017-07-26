@@ -7,6 +7,16 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+global.ApiUrl = '';
+store.dispatch('get_columns');
+store.dispatch('get_subColumn');
+store.dispatch('get_logo');
+store.dispatch('get_banner');
+store.dispatch('get_aboutUs');
+store.dispatch('get_news');
+store.dispatch('get_forumColumns');
+store.dispatch('test');
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
