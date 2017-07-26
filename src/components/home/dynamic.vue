@@ -144,7 +144,7 @@ export default {
 .news-list ul li div:first-child+div {
     display: inline-block;
     width: 100px;
-    margin: 30px 30px 0 0;
+    margin: 5px 30px 0 0;
     float: right;
     color: #666;
     text-align: center;

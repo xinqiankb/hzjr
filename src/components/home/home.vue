@@ -22,9 +22,9 @@ export default {
   },
   computed:{
     ...mapState({
-      // 关于我们
+      // 关于我们的数据
       aboutUs: state => state.aboutUs,
-      // 最新动态
+      // 最新动态的数据
       news: state => state.news,
       // footer上面的三个栏目
       forumColumns: state => state.forumColumns
