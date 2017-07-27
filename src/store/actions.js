@@ -3,9 +3,9 @@ import ajax from './../api'
 export default {
     //获取头部导航栏目
     get_columns(context) {
-        ajax.get(API+'?r=index%2Findex')
+        ajax.get(API+'index')
             .then(data => {
-                context.commit('set_columns',data.catagory)
+                context.commit('set_columns',data.catagory);
             })
             .catch(err => {
                 console.log(err);
@@ -21,24 +21,13 @@ export default {
     },
     //获取关于我们内容
     get_aboutUs(context) {
-        context.commit('set_aboutUs', {
-            // logo
-            'logo': './../static/img/aboutUs.png',
-            // 图片
-            'imgUrl': './../static/img/about.png',
-            // 内容
-            'content': '依托景荣基金在资产管理领域的专业能力，景泉财富汇聚投资专家、税务法律专家、财富管理专家，为个人客户、家族企业、机构投资人提供专业理财服务。根据客户的风险偏好、财务状况、理财目标、事业发展、家庭结构等因素，景泉财富的专业团队可为客户量身定制理财规划，将国内外优秀的固定收益类，现金管理类，有价证券类和选择性投资产品进行科学配置，同时提供全方位咨询服务，满足客户在人生不同时期、不同维度的财富需求，为组建家庭、养育子女、养老、财富传承等需求提供针对性的财富管理解决方案。',
-            // 底部三个标签
-            'tags': [{
-                title: ' 我们的目标始终如一：只会理财，尊享人生'
-            }, {
-                title: '我们的经营理念：中立客观、贴合需求、量身定做、财富增值'
-            }, {
-                title: '我们的重点始终是：协助客户早点实现财务自由'
-            }],
-            // 链接url
-            'Url': ''
-        })
+        ajax.get(API+'about')
+            .then(data => {
+                context.commit('set_aboutUs',data.array);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     },
     //获取最新动态
     get_news(context) {

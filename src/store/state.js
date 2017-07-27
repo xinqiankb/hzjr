@@ -1,4 +1,6 @@
 export default {
+    // 头部导航下标所在位置
+    active: '0',
     // 头部导航栏目
     columns: '',
     // logo

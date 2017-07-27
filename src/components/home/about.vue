@@ -1,18 +1,12 @@
 <template>
     <div class="about">
-        <div class="pic" v-bind:style="{ background: 'url('+aboutUs.imgUrl+')' }"></div>
+         <div class="pic" v-bind:style="{ background: 'url('+'http://hzry.youjiadv.com/backend/web/'+aboutUs[0]+')' }"></div>
         <div class="aboutUs-wrap">
-            <img :src="aboutUs.logo" alt="">
-            <p class="p-title">关于我们</p>
-            <p class="p-content">{{ aboutUs.content }}</p>
-            <ul>
-                <li v-for="tag in aboutUs.tags">
-                    <span></span>
-                    {{ tag.title }}
-                </li>
-            </ul>
+            <img src="./../../../static/img/aboutUs.png" alt="">
+            <p class="p-title">{{ aboutUs[1].title }}</p>
+            <p class="p-content">{{ aboutUs[1].remark }}</p>
         </div>
-        <a :href="aboutUs.url" class="button">MORE ></a>
+        <router-link to="/article/64" class="button">MORE ></router-link> 
     </div>
 </template>
 
