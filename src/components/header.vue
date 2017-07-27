@@ -3,10 +3,10 @@
         <div class="nav">
             <img :src="logo" alt="">
             <ul class="nav-bar">
-                <li @mousemove="activeClass(index)" @click="activeClass(index)" v-for="(item,index) in columns.columns" :class="{'active':active==index,'no-active':active!=index}" v-bind:style="{ top:top+'px' }">
-                    <router-link :to="{name:'article',params:{id:index}}">{{ item.name }}</router-link>
-                    <div class="sub-column" v-show="active==index" v-bind:style="{ background:color }">
-                        <div class="sub-title" v-for="sub in columns.subColumns">{{ sub.name }}</div>
+                <li ref='li' @mousemove="activeClass(index,item.child.length)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}">
+                    <router-link :to="{name:'article',params:{id:index}}">{{ item.parents[0].name }}</router-link>
+                    <div class="sub-column" v-show="active==index" v-bind:style="{ background:color, width:width+'px' }">
+                        <div class="sub-title" v-for="subColumns in item.child">{{ subColumns.name }}</div>
                     </div>
                 </li>
             </ul>
@@ -22,7 +22,9 @@ import { mapState } from 'vuex'
 export default {
     data() {
         return {
-            active: '0'
+            active: '0',
+            color: '',
+            width: ''
         }
     },
     computed: {
@@ -32,25 +34,22 @@ export default {
             // banner
             banner: state => state.banner,
             // 头部导航栏目
-            columns:state => state.columns,
+            columns: state => state.columns,
         }),
-        top: function () {
-            if (this.columns.subColumns.length != 0) {
-                return -(this.columns.subColumns.length * 35 + 35)
-            }
-        },
-        color: function () {
-            if (this.columns.subColumns.length == 0) {
-                return 'transparent'
-            }
-            else {
-                return '#FFF'
-            }
-        }
     },
     methods: {
-        activeClass(i) {
+        activeClass(i, len) {
             this.active = i;
+            // 根据子栏目个数来判断背景颜色
+            if (len == 0) {
+                this.color = 'transparent';
+                //设置子栏目宽度
+                this.width = this.$refs.li[i].clientWidth
+            }
+            else {
+                this.color = '#FFF';
+                this.width = this.$refs.li[i].clientWidth
+            }
         }
     }
 }
@@ -123,6 +122,8 @@ a {
     margin-top: 2.3rem;
     padding: 15px;
     padding-bottom: 20px;
+    position: absolute;
+    box-sizing:border-box;
 }
 
 .sub-title {
