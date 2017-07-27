@@ -5,6 +5,7 @@ export default {
     get_columns(context) {
         ajax.get(API+'?r=index%2Findex')
             .then(data => {
+                console.log(data)
                 context.commit('set_columns',data.catagory)
             })
             .catch(err => {

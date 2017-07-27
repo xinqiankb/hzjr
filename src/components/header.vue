@@ -4,28 +4,53 @@
             <img :src="logo" alt="">
             <ul class="nav-bar">
                 <li ref='li' @mousemove="activeClass(index,item.child.length)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}">
-                    <router-link :to="{name:'article',params:{id:index}}">{{ item.parents[0].name }}</router-link>
+                    <router-link class="title" :to="{name:'home'}">{{ item.parents[0].name }}</router-link>
                     <div class="sub-column" v-show="active==index" v-bind:style="{ background:color, width:width+'px' }">
-                        <div class="sub-title" v-for="subColumns in item.child">{{ subColumns.name }}</div>
+                        <div class="sub-title" v-for="subColumns in item.child">
+                            <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}">
+                                {{ subColumns.name }}
+                            </router-link>
+                        </div>
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="banner">
-            <img :src="banner" alt="">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="str in listImg" :style="{ backgroundImage: 'url(' + str.url + ')' }"></div>
+            </div>
+            <div class="swiper-pagination swiper-pagination-white"></div>
         </div>
     </div>
 </template>
 
 <script>
+import Swiper from 'swiper';
+import 'swiper/dist/css/swiper.min.css';
 import { mapState } from 'vuex'
 export default {
     data() {
         return {
             active: '0',
             color: '',
-            width: ''
+            width: '',
+            listImg: [{
+                url:'./../../static/img/banner.jpg'
+            }]
         }
+    },
+    mounted() {
+        console.log('mounted', this)
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            loop: true,
+            speed: 600,
+            autoplay: 4000,
+            onTouchEnd: function () {
+                swiper.startAutoplay()
+            }
+        });
     },
     computed: {
         ...mapState({
@@ -84,7 +109,7 @@ export default {
     height: 54px;
 }
 
-a {
+.title {
     text-decoration: none;
     color: #666;
     display: inline-block;
@@ -94,19 +119,8 @@ a {
     padding-left: 0.9rem;
 }
 
-.banner {
-    margin-top: -12.1rem;
-}
-
-.banner img {
-    width: 100%;
-    height: 680px;
-}
-
 .active {
     border-bottom: 4px solid #cd934f;
-    /* position: relative;
-    top: 0.2rem; */
 }
 
 .no-active {
@@ -123,7 +137,7 @@ a {
     padding: 15px;
     padding-bottom: 20px;
     position: absolute;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
 .sub-title {
@@ -132,7 +146,37 @@ a {
     padding-bottom: 5px;
 }
 
+.sub-title a {
+    text-decoration: none;
+    color: #666;
+}
+
 .sub-title:hover {
     color: #cd934f
+}
+
+.swiper-container {
+    margin-top: -12.1rem;
+    width: 100%;
+    height: 600px;
+}
+
+.swiper-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-pagination-bullet {
+    width: 0.833rem;
+    height: 0.833rem;
+    display: inline-block;
+    background: #7c5e53;
 }
 </style>
