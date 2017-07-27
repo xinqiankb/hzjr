@@ -26,8 +26,8 @@ export default new Router({
       component: list
     },    
     {
-      path: '/news',
-      name: 'news',
+      path: '/news/:id',
+      name: '3',
       component: news
     },    
     {

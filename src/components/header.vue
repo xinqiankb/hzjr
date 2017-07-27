@@ -3,11 +3,11 @@
         <div class="nav">
             <img :src="logo" alt="">
             <ul class="nav-bar">
-                <li ref='li' @mousemove="activeClass(index,item.child.length)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}">
-                    <router-link class="title" :to="{name:'home'}">{{ item.parents[0].name }}</router-link>
+                <li ref='li' @mousemove="display(index,item.child.length)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}">
+                    <router-link :class="{'default':index!=0}" class="title" :to="{name:'home'}">{{ item.parents[0].name }}</router-link>
                     <div class="sub-column" v-show="active==index" v-bind:style="{ background:color, width:width+'px' }">
-                        <div class="sub-title" v-for="subColumns in item.child">
-                            <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}">
+                        <div class="sub-item" v-for="subColumns in item.child" @click="activeClass(index)">
+                            <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}" class="sub-name">
                                 {{ subColumns.name }}
                             </router-link>
                         </div>
@@ -31,7 +31,6 @@ import { mapState } from 'vuex'
 export default {
     data() {
         return {
-            active: '0',
             color: '',
             width: '',
             listImg: [{
@@ -40,7 +39,6 @@ export default {
         }
     },
     mounted() {
-        console.log('mounted', this)
         var swiper = new Swiper('.swiper-container', {
             pagination: '.swiper-pagination',
             paginationClickable: true,
@@ -54,6 +52,8 @@ export default {
     },
     computed: {
         ...mapState({
+            // active
+            active: state => state.active,
             // logo
             logo: state => state.logo,
             // banner
@@ -63,8 +63,8 @@ export default {
         }),
     },
     methods: {
-        activeClass(i, len) {
-            this.active = i;
+        display(i, len) {
+            this.$store.state.active = i;
             // 根据子栏目个数来判断背景颜色
             if (len == 0) {
                 this.color = 'transparent';
@@ -75,6 +75,9 @@ export default {
                 this.color = '#FFF';
                 this.width = this.$refs.li[i].clientWidth
             }
+        },
+        activeClass(i) {
+            this.$store.state.active = i;
         }
     }
 }
@@ -140,18 +143,18 @@ export default {
     box-sizing: border-box;
 }
 
-.sub-title {
+.sub-item {
     border-bottom: 1px solid #f2f2f2;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-.sub-title a {
+.sub-item a {
     text-decoration: none;
     color: #666;
 }
 
-.sub-title:hover {
+.sub-name:hover {
     color: #cd934f
 }
 
@@ -179,5 +182,9 @@ export default {
     height: 0.833rem;
     display: inline-block;
     background: #7c5e53;
+}
+
+.default{
+    cursor:default
 }
 </style>

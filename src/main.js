@@ -7,7 +7,7 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-global.API = 'http://hzry.youjiadv.com/frontend/web/index.php';
+global.API = 'http://hzry.youjiadv.com/frontend/web/index.php?r=index%2F';
 
 store.dispatch('get_columns');
 store.dispatch('get_logo');
