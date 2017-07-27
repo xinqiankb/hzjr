@@ -98,4 +98,17 @@
 	.teambox .desc{font-size: 0.7rem;color: #888;letter-spacing: 0.5px;margin: 1rem 0;line-height: 1.2rem}
 	.teambox .work .workcareer{color: #777;font-size: 0.8rem;margin-bottom: 0.5rem}
 	.teambox .work .careerlist{color: #999;font-size: 0.7rem;line-height: 1.4rem}
+
+	@media only screen and (max-width: 768px){
+		.teamlist .main{width: 100%}
+		.teambox{padding-bottom: 1rem;margin-top: 0.2rem}
+		.teambox .imgbox{float: none;margin: 0 auto;display: block; }
+		.teambox .info{float: none;width: 100%;}
+		.teambox .infotitle{display:inline-block;width: calc(100% - 15rem);width: -webkit-calc(100% - 15rem);width: -o-calc(100% - 15rem);width: -moz-calc(100% - 15rem);}
+		.info .subtitle{font-size: 0.8rem;color: #888;padding-top: 0.5rem;display: inline-block;}
+		.teambox .desc{}
+		.teambox .desc{margin-bottom:  0;margin-top: 0.2rem}
+		.readmore{left: 10px;padding: 0.2rem;font-size: 0.5rem;position: initial;margin-top: 0.2rem;display: inline-block;}
+	} 
+
 </style>
