@@ -159,6 +159,7 @@ export default {
     margin-top: -12.1rem;
     width: 100%;
     height: 600px;
+    z-index: -1;
 }
 
 .swiper-wrapper {
