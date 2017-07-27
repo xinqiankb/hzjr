@@ -3,36 +3,9 @@ import ajax from './../api'
 export default {
     //获取头部导航栏目
     get_columns(context) {
-        context.commit('set_columns', {
-            'columns': [
-                {
-                    name: '首页'
-                }, {
-                    name: '关于融熠'
-                }, {
-                    name: '投资管理'
-                }, {
-                    name: '金融学院'
-                }, {
-                    name: '招贤纳士'
-                }
-            ],
-            'subColumns': [
-                {
-                    name: '测试'
-                },
-                {
-                    name: '测试'
-                },
-                {
-                    name: '测试'
-                }
-            ]
-        });
-        ajax.get(API+'?r=index%2Ftest')
+        ajax.get(API+'?r=index%2Findex')
             .then(data => {
-                console.log(data);
-                //context.commit('set_columns',data)
+                context.commit('set_columns',data.catagory)
             })
             .catch(err => {
                 console.log(err);

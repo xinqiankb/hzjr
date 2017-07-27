@@ -8,7 +8,7 @@ export default {
             xhr.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        resolve(this.responseText, this)
+                        resolve(JSON.parse(this.responseText, this))
                     } else {
                         var resJson = { code: this.status, response: this.response }
                         reject(resJson, this)

@@ -1,7 +1,18 @@
 export default {
     //设置头部导航栏目
     set_columns (state,payload) {
-        state.columns = payload;
+        for(var i = 0 ; i< payload.length;i++){
+            var node = payload[i].child;
+            var child = [];
+            for(var j = 0; j < node.length;j++){
+                //删除2级栏目空数组
+                if(node[j].length != '0'){
+                    child.push(node[j]);
+                }
+            }
+            payload[i].child = child;
+        }
+        state.columns= payload;
     },
     //设置logo
     set_logo (state,payload) {
