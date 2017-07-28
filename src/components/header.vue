@@ -17,7 +17,7 @@
         </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="str in listImg" :style="{ backgroundImage: 'url(' + str.url + ')' }"></div>
+                    <a :herf='str.url' class="swiper-slide" v-for="str in banner" :style="{ backgroundImage: 'url(' + 'http://hzry.youjiadv.com/backend/web/' + str.img + ')' }"></a>
             </div>
             <div class="swiper-pagination swiper-pagination-white"></div>
         </div>
@@ -32,13 +32,10 @@ export default {
     data() {
         return {
             color: '',
-            width: '',
-            listImg: [{
-                url:'./../../static/img/banner.jpg'
-            }]
+            width: ''
         }
     },
-    mounted() {
+    updated() {
         var swiper = new Swiper('.swiper-container', {
             pagination: '.swiper-pagination',
             paginationClickable: true,
@@ -59,7 +56,7 @@ export default {
             // banner
             banner: state => state.banner,
             // 头部导航栏目
-            columns: state => state.columns,
+            columns: state => state.columns
         }),
     },
     methods: {
@@ -186,5 +183,23 @@ export default {
 
 .default{
     cursor:default
+}
+
+@media only screen and (max-width: 414px) {
+    .swiper-container{
+        display: none;
+    }
+    .nav {
+        width:100%;
+        height: 60px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+    .nav img{
+        width:50%;
+        top: 0.8rem;
+    }
+    .nav-bar{
+        display: none;
+    }
 }
 </style>
