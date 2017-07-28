@@ -90,6 +90,9 @@ hr {
 }
 
 @media only screen and (max-width: 414px) {
+    .forum{
+        margin-top: -10rem;
+    }
     .forum-club-cont {
         width: 100%;
         height: 160px;
