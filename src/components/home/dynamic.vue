@@ -1,39 +1,42 @@
 <template>
     <div class="news-content">
-        <div class="news-bg" v-bind:style="{ background: 'url('+news.imgUrl+')' }">
+          <div class="news-bg" v-bind:style="{ background: 'url('+IMG_URL+news[0]+')' }">
             <p></p>
         </div>
         <div class="news-list">
             <ul>
-                <li v-for="item in news.list">
+                <li v-for="item in news[1]">
                     <div>
                         <p>
-                            <a href="" class="t1">{{ item.name }}</a>
+                            <a href="" class="t1">{{ item.title }}</a>
                         </p>
-                        <p>
-                            {{ item.content }}
-                        </p>
-                        <a href="" class="button">MORE ></a>
+                        <p>{{ item.remark }}</p>
+                        <router-link to="/list/74" class="button">MORE ></router-link>
                     </div>
                     <div>
-                        <strong>30/</strong>
-                        <span>"Jun"
-                            <br> "2017"</span>
+                        <span>{{ item.create_at }}</span>
                         <div>
-                            <img :src="item.pic" alt="">
+                            <img :src="IMG_URL+item.thumb" alt="">
                         </div>
                     </div>
                 </li>
             </ul>
-        </div>
+        </div>  
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-    props: ['news'],
     data() {
-        return {}
+        return {
+            IMG_URL
+        }
+    },
+    computed: {
+        ...mapState({
+            news: state => state.news
+        })
     }
 }
 </script>
@@ -143,8 +146,7 @@ export default {
 
 .news-list ul li div:first-child+div {
     display: inline-block;
-    width: 100px;
-    margin: 5px 30px 0 0;
+    margin: 30px 30px 0 0;
     float: right;
     color: #666;
     text-align: center;
@@ -189,4 +191,22 @@ img {
 .news-list ul li:hover .t1 {
     color: #cd934f;
 }
+ @media only screen and (max-width: 414px) {
+    .news-content{
+        width:100%;
+        margin-top: 0.6rem;
+    }
+    .news-bg{
+        display: none;
+    }
+    .news-list{
+        width:100%
+    }
+    .news-list ul li div:first-child {
+        width:85%;
+    }
+    .news-list ul li div:first-child+div div{
+        display: none;
+    }
+} 
 </style>

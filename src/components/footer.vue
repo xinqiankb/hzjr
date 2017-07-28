@@ -13,17 +13,17 @@
                             <img src="">
                             <span>
                                 <b>您的财富全管家</b>
-                                <br>财富热线：4006 796 169</span>
+                                <br>财富热线：{{ footer.wealth_number }}</span>
                         </div>
                         <a id="btn_ahowMap"></a>
                     </div>
                     <div class="footer-addr-warp">
                         <span>地址：</span>
-                        <p>上海市黄浦区人民路300号外滩Soho广场D栋6楼</p>
+                        <p>{{ footer.wealth_add }}</p>
                     </div>
                     <div class="footer-addr-warp">
-                        <span>邮编：</span>
-                        <p>200002</p>
+                        <span>备案：</span>
+                        <p>{{ footer.case_number }}</p>
                     </div>
                     <img src="" class="map">
                 </div>
@@ -39,17 +39,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
             columns: [
                 {
-                name: '关于融熠'
-            }, {
-                name: '投资管理'
-            }, {
-                name: '金融学院'
-            }],
+                    name: '关于融熠'
+                }, {
+                    name: '投资管理'
+                }, {
+                    name: '金融学院'
+                }],
             subColumn: [
                 {
                     name: '测试'
@@ -62,6 +63,11 @@ export default {
                 }
             ]
         }
+    },
+    computed:{
+        ...mapState({
+            footer: state => state.footer
+        })
     }
 }
 </script>
@@ -227,5 +233,39 @@ img {
     text-decoration: none;
     margin: 0 0 20px 0;
     text-align: center;
+}
+
+@media only screen and (max-width: 414px) {
+    .footer-box{
+        height:auto;
+        margin-top: -5rem;
+    }
+    .footer-wrap {
+        width: 100%;
+        height:auto;
+    }
+    .footer-left{
+        width:100%;
+    }
+    .footer-wrap ul{
+        display: none;
+    }
+    .footer-telMap-wrap {
+        margin: 0;
+    }
+    .forum-club-cont{
+        margin-top:5rem;
+    }
+    .forum-club-cont div:first-child{
+        height:auto !important;
+    }
+    .forum-club-cont div:first-child + div{
+        width:85%;
+        height:auto !important;
+        top: -3rem;
+    }
+    .footer-addr-warp p{
+        width: 100%;
+    }
 }
 </style>
