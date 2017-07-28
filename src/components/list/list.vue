@@ -75,6 +75,25 @@
 			return{
 
 			}
+		},
+		mounted() {
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			var that = this;
+			$.ajax({
+				url:API +'list',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					if(res.data !='null'){
+						that.article = res.data; 
+					}
+					console.log(res)
+				},
+				error: function(res){
+
+				}
+			})
 		}
 	}
 </script>

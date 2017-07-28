@@ -3,8 +3,9 @@
 		<div class="main">
 			<div class="maincontent">
 				<div class="group-list" style="padding-bottom:1rem">
-					<p class='listtltle'>MANAGEMENT TEAM</p>
-					<p class='listtltle' style="padding-top:0">团队介绍</p>
+					<p class='listtltle'>{{article.title}}</p>
+					<p class='arttime'><span style="margin-right:0.5rem">来源:&nbsp;&nbsp;&nbsp;{{article.source}}</span>日期:&nbsp;&nbsp;&nbsp;{{article.create_at}}</p>
+					<p class='artcontent'><pre v-html='article.content'>{{article.content}}</pre></p>
 				</div>	
 			</div>
 		</div>
@@ -19,18 +20,26 @@
 		data(){
 			return {
 				article:{
-					name:'111',
 				}
 			}
 		},
 		mounted() {
 			var artid = this.$route.params.id;
 			var datas= {'id':11};
-			this.$http.post(API + 'detail',datas,{credentials:true})
-			.then(function(res){
-				console.log(res)
-			},function(res){
+			var that = this;
+			$.ajax({
+				url:API +'detail',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					if(res.data !='null'){
+						that.article = res.data; 
+					}
+					console.log(res)
+				},
+				error: function(res){
 
+				}
 			})
 		}
 	}
@@ -40,5 +49,13 @@
 	html{font-size: 20px}
 	#Artcontent .main{width: 1200px;margin:0 auto;padding-bottom: 4rem}
 	#Artcontent .main .maincontent{}
-	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;}
+	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;font-size: 1.5rem;letter-spacing: 2px;text-indent: 10px}
+	.arttime{line-height: 1rem;font-size: 0.8rem;border-bottom: 1px solid rgb(232,232,232);padding-bottom: 0.5rem}
+	.artcontent{margin-top: 0.5rem}
+
+	@media only screen and (max-width: 768px){
+		#Artcontent .main{width: 100%}
+		.listtltle{font-size: 1rem;padding: 1rem 0;}
+		.arttime{width: 90%;margin: 0 auto}
+	}
 </style>
