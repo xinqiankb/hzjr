@@ -33,5 +33,10 @@ export default {
     //设置footer上面的三个栏目
     set_forumColumns (state,payload) {
         state.forumColumns = payload;
+    },
+    //设置footer的内容
+    set_footer (state,payload) {
+        state.footer = payload;
     }
 }
+ 

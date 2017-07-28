@@ -12,5 +12,7 @@ export default {
     // 最新动态
     news: '',
     // footer上面的三个栏目
-    forumColumns: ''
+    forumColumns: '',
+    // footer的内容
+    footer: ''
 }

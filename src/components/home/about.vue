@@ -1,20 +1,28 @@
 <template>
     <div class="about">
-         <div class="pic" v-bind:style="{ background: 'url('+'http://hzry.youjiadv.com/backend/web/'+aboutUs[0]+')' }"></div>
+        <div class="pic" v-bind:style="{ background: 'url('+IMG_URL+aboutUs[0]+')' }"></div>
         <div class="aboutUs-wrap">
             <img src="./../../../static/img/aboutUs.png" alt="">
             <p class="p-title">{{ aboutUs[1].title }}</p>
             <p class="p-content">{{ aboutUs[1].remark }}</p>
         </div>
-        <router-link to="/article/64" class="button">MORE ></router-link> 
+        <router-link to="/article/64" class="button">MORE ></router-link>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-    props: ['aboutUs'],
     data() {
-        return {}
+        return {
+            IMG_URL
+        }
+    },
+    computed: {
+        ...mapState({
+            // 关于我们的数据
+            aboutUs: state => state.aboutUs,
+        })
     }
 }
 </script>
@@ -104,5 +112,13 @@ li span {
 
 .button:hover {
     background: #b88446;
+}
+
+@media only screen and (max-width: 414px) {
+    .about {
+        display: none;
+        width: 100%;
+    }
+    
 }
 </style>
