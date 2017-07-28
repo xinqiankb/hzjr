@@ -10,6 +10,7 @@
 	import Artcontent from './content'
 	import HeaderNavbar from './../header'
 	import footerBox from './../footer'
+	import { mapState } from 'vuex'
 	export default{
 		name:'article',
 		components:{
@@ -19,7 +20,7 @@
 			return {
 
 			}
-		}
+		},
 
 	}
 

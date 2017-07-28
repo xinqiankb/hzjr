@@ -12,6 +12,8 @@
 </template>
 
 <script>
+	import ajax from '../../api'
+
 	export default{
 		name:'Artcontent',
 		data(){
@@ -20,6 +22,16 @@
 					name:'111',
 				}
 			}
+		},
+		mounted() {
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			this.$http.post(API + 'detail',datas,{credentials:true})
+			.then(function(res){
+				console.log(res)
+			},function(res){
+
+			})
 		}
 	}
 </script>
