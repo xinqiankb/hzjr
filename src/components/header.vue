@@ -1,7 +1,10 @@
 <template>
     <div class="header">
+        <div v-show="overlayer" class="overlayer" @touchmove.prevent>
+        </div>
         <div class="nav">
             <img :src="logo" alt="">
+            <img class="menu" src="./../../static/img/menu.svg" alt="" @click="dropDownBtn">
             <ul class="nav-bar">
                 <li ref='li' @mousemove="display(index,item.child.length)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}">
                     <router-link :class="{'default':index!=0}" class="title" :to="{name:'home'}">{{ item.parents[0].name }}</router-link>
@@ -17,10 +20,20 @@
         </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                    <a :herf='str.url' class="swiper-slide" v-for="str in banner" :style="{ backgroundImage: 'url(' + 'http://hzry.youjiadv.com/backend/web/' + str.img + ')' }"></a>
+                <a :herf='str.url' class="swiper-slide" v-for="str in banner" :style="{ backgroundImage: 'url(' + 'http://hzry.youjiadv.com/backend/web/' + str.img + ')' }"></a>
             </div>
             <div class="swiper-pagination swiper-pagination-white"></div>
         </div>
+        <ul class="drop-down" v-show="dropDown">
+            <li v-for="item in columns">
+                <router-link :class="{'default':index!=0}" :to="{name:'home'}">{{ item.parents[0].name }}</router-link>
+                <div v-for="subColumns in item.child">
+                    <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}" class="sub-name">
+                        {{ subColumns.name }}
+                    </router-link>
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -32,7 +45,9 @@ export default {
     data() {
         return {
             color: '',
-            width: ''
+            width: '',
+            dropDown: false,
+            overlayer: false
         }
     },
     updated() {
@@ -75,12 +90,30 @@ export default {
         },
         activeClass(i) {
             this.$store.state.active = i;
+        },
+        dropDownBtn() {
+            if (this.dropDown == false) {
+                this.dropDown = true;
+                this.overlayer = true;
+            }
+            else {
+                this.dropDown = false;
+                this.overlayer = false;
+            }
         }
     }
 }
 </script>
 
 <style scoped>
+.menu {
+    display: none;
+}
+
+.drop-down {
+    display: none;
+}
+
 .nav {
     width: 1240px;
     height: 300px;
@@ -181,25 +214,73 @@ export default {
     background: #7c5e53;
 }
 
-.default{
-    cursor:default
+.default {
+    cursor: default
 }
 
 @media only screen and (max-width: 414px) {
-    .swiper-container{
+    .swiper-container {
         display: none;
     }
     .nav {
-        width:100%;
+        width: 100%;
         height: 60px;
         border-bottom: 1px solid #f1f1f1;
     }
-    .nav img{
-        width:50%;
-        top: 0.8rem;
+    .nav img {
+        width: 60%;
+        top: 0.6rem;
     }
-    .nav-bar{
+    .nav-bar {
         display: none;
+    }
+    .menu {
+        display: block;
+        width: 30px !important;
+        right: 1.5rem;
+        top: 1rem !important;
+    }
+    .drop-down {
+        display: block;
+        list-style: none;
+        width: 280px;
+        border-right: 1px solid #f1f1f1;
+        position: absolute;
+        z-index: 100;
+        background: #FFF;
+        right: 0;
+    }
+    .drop-down li {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #f1f1f1;
+        text-indent: 2rem;
+    }
+    .drop-down li a {
+        text-decoration: none;
+        color:#000;
+    }
+    .drop-down div {
+        font-size: 13px;
+        color: #666;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-indent: 4rem;
+        margin-top: 5px;
+    }
+    .drop-down div a {
+        text-decoration: none;
+        color: #666;
+    }
+    /*遮罩层*/
+    .overlayer {
+        position: absolute;
+        left: 0;
+        top: 61px;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background: rgba(0,0,0,0.5);
     }
 }
 </style>

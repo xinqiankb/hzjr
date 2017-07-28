@@ -4,13 +4,13 @@
             <div class="footer-left">
                 <p class="footer-left-title">
                     杭州融熠
-                    <br> "ACF PRIVATE"
+                    <br> "HANGZHOURONGYI"
                 </p>
                 <img src="./../../static/img/footer-line.jpg" alt="" style="float:left">
                 <div class="footer-left-cont">
                     <div class="footer-telMap-wrap">
                         <div class="footer-tel">
-                            <img src="">
+                            <img src="./../../static/img/l.png">
                             <span>
                                 <b>您的财富全管家</b>
                                 <br>财富热线：{{ footer.wealth_number }}</span>
@@ -29,9 +29,11 @@
                 </div>
             </div>
             <ul>
-                <li v-for="item in columns">
-                    <h3>{{ item.name }}</h3>
-                    <a href="" v-for="sub in subColumn ">{{ sub.name }}</a>
+                <li v-for="(item,index) in columns" v-show="index!=0 && index!=4">
+                    <h3>{{ item.parents[0].name }}</h3>
+                    <router-link v-for="subColumns in item.child" :to="{name:subColumns.list_type,params:{id:subColumns.id}}">
+                        {{ subColumns.name }}
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -42,30 +44,11 @@
 import { mapState } from 'vuex'
 export default {
     data() {
-        return {
-            columns: [
-                {
-                    name: '关于融熠'
-                }, {
-                    name: '投资管理'
-                }, {
-                    name: '金融学院'
-                }],
-            subColumn: [
-                {
-                    name: '测试'
-                },
-                {
-                    name: '测试'
-                },
-                {
-                    name: '测试'
-                }
-            ]
-        }
+        return {}
     },
-    computed:{
+    computed: {
         ...mapState({
+            columns: state => state.columns,
             footer: state => state.footer
         })
     }
@@ -236,35 +219,35 @@ img {
 }
 
 @media only screen and (max-width: 414px) {
-    .footer-box{
-        height:auto;
+    .footer-box {
+        height: auto;
         margin-top: -5rem;
     }
     .footer-wrap {
         width: 100%;
-        height:auto;
+        height: auto;
     }
-    .footer-left{
-        width:100%;
+    .footer-left {
+        width: 100%;
     }
-    .footer-wrap ul{
+    .footer-wrap ul {
         display: none;
     }
     .footer-telMap-wrap {
         margin: 0;
     }
-    .forum-club-cont{
-        margin-top:5rem;
+    .forum-club-cont {
+        margin-top: 5rem;
     }
-    .forum-club-cont div:first-child{
-        height:auto !important;
+    .forum-club-cont div:first-child {
+        height: auto !important;
     }
-    .forum-club-cont div:first-child + div{
-        width:85%;
-        height:auto !important;
+    .forum-club-cont div:first-child+div {
+        width: 85%;
+        height: auto !important;
         top: -3rem;
     }
-    .footer-addr-warp p{
+    .footer-addr-warp p {
         width: 100%;
     }
 }

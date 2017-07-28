@@ -18,7 +18,6 @@ store.dispatch('get_aboutUs');
 store.dispatch('get_news');
 store.dispatch('get_forumColumns');
 store.dispatch('get_footer');
-store.dispatch('test');
 
 /* eslint-disable no-new */
 new Vue({

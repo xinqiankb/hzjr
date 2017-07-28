@@ -208,5 +208,14 @@ img {
     .news-list ul li div:first-child+div div{
         display: none;
     }
+    .news-list ul li{
+        height: 173px;
+    }
+    .news-list ul li div:first-child p:first-child+p{
+        height:20px;
+    }
+    .news-list ul li div:first-child p:first-child{
+        font-size: 14px;
+    }
 } 
 </style>
