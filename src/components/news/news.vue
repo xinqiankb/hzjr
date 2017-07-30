@@ -204,7 +204,7 @@
 	.readmore{position: absolute;right: 10px;bottom: 10px;color: #fff;padding: 0.4rem 0.8rem;background-color: #dea562;text-decoration: none}
 	.readmore:hover{background-color: #cd934f}
 	.pagebtn{cursor: pointer;}
-	.page{margin-top: 2rem;text-align: right;}
+	.page{margin-top: 2rem;text-align: right;padding-bottom: 4rem}
 	.page .pagelist i{color: #888;cursor: pointer;}
 	.pageactive{color: #000 !important}
 
