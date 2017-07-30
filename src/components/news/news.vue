@@ -28,7 +28,7 @@
 				</div>
 				<div class="page">
 					<span class="pagebtn" @click="pre()">{{prepage}}</span>
-					<span v-for="item in pagenum"><i style="margin-right:0.2rem">{{item.num}}</i></span>
+					<span class="pagelist" v-for="(item,index) in pagenum"><i @click='findpage(item.num)' :class="{'pageactive':(index+1) == nowpage}" style="margin-right:0.2rem">{{item.num}}</i></span>
 					<span class="pagebtn" @click="next">{{nextpage}}</span>
 					<span>当前第</span><span>{{nowpage}}</span>页,共<span>{{sumpage}}页</span>
 				</div>
@@ -48,10 +48,10 @@
 			return{
 				artlist:'',
 				nowpage:1,
-				pagesize:1,
+				pagesize:8,
 				sumpage:'',
 				navname:'',
-				prepage:'第一页',
+				prepage:'上一页',
 				pagelist:'',
 				nextpage:'下一页',
 				pagenum:"",
@@ -75,7 +75,8 @@
 						that.navname = res.name;
 						allpage = parseInt(res.count)/that.pagesize;
 						console.log(allpage)
-						if(allpage == 0){
+						if(allpage < 1){
+							that.pagenum = [{num:1}];
 							that.sumpage = 1;
 						}
 						else{
@@ -99,26 +100,27 @@
 		},
 		methods:{
 			pre:function(e){
+				var artid = this.$route.params.id;
+				var that = this;
+				var nowpage = that.nowpage;
+				var sumpage = that.sumpage;
+				var sendpage = nowpage - 2;
+				if(nowpage <= 1){
+					nowpage = 1;
+				}
+				else{
+					that.nowpage --;
+				}
+				console.log(sendpage)
 				$.ajax({
-					url:API +'list',
+					url:API +'page',
 					type:"POST",
-					data:{'id':artid},
+					data:{'id':artid,'page':sendpage,'size':that.pagesize},
 					success:function(res){
-						var allpage ;
-						console.log(res)
-						if(res.count != 0){
-							that.artlist = res.news;
-							that.sumpage = res.count;
-							that.navname = res.name;
-							allpage = parseInt(res.count)/that.pagesize;
-							console.log(allpage)
-							if(allpage == 0){
-								that.sumpage = 1;
-							}
-							else{
-								that.sumpage = allpage
-							}
-						}
+						console.log(res.news)
+						var data = res.news;
+						that.artlist = "";
+						that.artlist = data;
 					},
 					error: function(res){
 
@@ -133,25 +135,48 @@
 				var sumpage = that.sumpage;
 				var sendpage = nowpage;
 				if(nowpage >= sumpage){
-					nowpage = sumpage;
+					sendpage = sumpage - 1;
 				}
 				else{
 					that.nowpage ++;
 				}
-			console.log(that.nowpage)
-			$.ajax({
-				url:API +'page',
-				type:"POST",
-				data:{'id':artid,'page':sendpage,'size':that.pagesize},
-				success:function(res){
-					var data = res.news;
-					that.artlist = "";
-					that.artlist = data;
-				},
-				error: function(res){
+				console.log(sendpage + 'xx')
+				$.ajax({
+					url:API +'page',
+					type:"POST",
+					data:{'id':artid,'page':sendpage,'size':that.pagesize},
+					success:function(res){
+						var data = res.news;
+						that.artlist = "";
+						that.artlist = data;
+					},
+					error: function(res){
 
+					}
+				})
+			},
+			findpage:function(index){
+				var artid = this.$route.params.id;
+				var that = this;
+				var sendpage = index - 1;
+				that.nowpage = index;
+				if(that.nowpage >=5){
+					that.nowpage = 5;
 				}
-			})
+				var sumpage = that.sumpage;
+				$.ajax({
+					url:API +'page',
+					type:"POST",
+					data:{'id':artid,'page':sendpage,'size':that.pagesize},
+					success:function(res){
+						var data = res.news;
+						that.artlist = "";
+						that.artlist = data;
+					},
+					error: function(res){
+
+					}
+				})
 			}
 		}
 	}
@@ -179,6 +204,10 @@
 	.readmore{position: absolute;right: 10px;bottom: 10px;color: #fff;padding: 0.4rem 0.8rem;background-color: #dea562;text-decoration: none}
 	.readmore:hover{background-color: #cd934f}
 	.pagebtn{cursor: pointer;}
+	.page{margin-top: 2rem;text-align: right;}
+	.page .pagelist i{color: #888;cursor: pointer;}
+	.pageactive{color: #000 !important}
+
 
 	@media only screen and (max-width: 768px){
 		.news .main{width: 100%}
