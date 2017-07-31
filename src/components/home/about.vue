@@ -1,12 +1,12 @@
 <template>
     <div class="about">
-        <div class="pic" v-bind:style="{ background: 'url('+IMG_URL+aboutUs[0]+')' }"></div>
+         <div class="pic" v-bind:style="{ background: 'url('+IMG_URL+aboutUs.bgimage+')' }"></div>
         <div class="aboutUs-wrap">
             <img src="./../../../static/img/aboutUs.png" alt="">
-            <p class="p-title">{{ aboutUs[1].title }}</p>
-            <p class="p-content">{{ aboutUs[1].remark }}</p>
+            <p class="p-title">{{ aboutUs.title }}</p>
+            <p class="p-content">{{ aboutUs.remark }}</p>
         </div>
-        <router-link to="/article/64" class="button">MORE ></router-link>
+        <router-link to="/article/64" class="button">MORE ></router-link> 
     </div>
 </template>
 

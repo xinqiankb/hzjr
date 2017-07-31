@@ -31,9 +31,11 @@
             <ul>
                 <li v-for="(item,index) in columns" v-show="index!=0 && index!=4">
                     <h3>{{ item.parents[0].name }}</h3>
-                    <router-link v-for="subColumns in item.child" :to="{name:subColumns.list_type,params:{id:subColumns.id}}">
-                        {{ subColumns.name }}
-                    </router-link>
+                    <div v-for="subColumns in item.child">
+                        <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}">
+                            {{ subColumns.name }}
+                        </router-link>
+                    </div>
                 </li>
             </ul>
         </div>

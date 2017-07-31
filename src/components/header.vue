@@ -16,6 +16,9 @@
                         </div>
                     </div>
                 </li>
+                <li>
+                    <a class="default title" href="#" @click="messageShow">在线留言</a>
+                </li>
             </ul>
         </div>
         <div class="swiper-container">
@@ -25,7 +28,7 @@
             <div class="swiper-pagination swiper-pagination-white"></div>
         </div>
         <ul class="drop-down" v-show="dropDown">
-            <li v-for="item in columns">
+            <li v-for="(item,index) in columns">
                 <router-link :class="{'default':index!=0}" :to="{name:'home'}">{{ item.parents[0].name }}</router-link>
                 <div v-for="subColumns in item.child">
                     <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}" class="sub-name">
@@ -33,7 +36,11 @@
                     </router-link>
                 </div>
             </li>
+             <li>
+                    <a class="default" href="#" @click="messageShow">在线留言</a>
+            </li>
         </ul>
+        <message v-show="message" v-on:message="messageHidden"></message>
     </div>
 </template>
 
@@ -41,13 +48,15 @@
 import Swiper from 'swiper';
 import 'swiper/dist/css/swiper.min.css';
 import { mapState } from 'vuex'
+import message from './message'
 export default {
     data() {
         return {
             color: '',
             width: '',
             dropDown: false,
-            overlayer: false
+            overlayer: false,
+            message: false
         }
     },
     updated() {
@@ -91,6 +100,7 @@ export default {
         activeClass(i) {
             this.$store.state.active = i;
         },
+        // 移动端是否显示下拉菜单
         dropDownBtn() {
             if (this.dropDown == false) {
                 this.dropDown = true;
@@ -100,12 +110,35 @@ export default {
                 this.dropDown = false;
                 this.overlayer = false;
             }
+        },
+        // 显示在线留言
+        messageShow() {
+            this.message = true;
+            this.overlayer = true;
+        },
+        // 关闭在线留言
+        messageHidden(data) {
+            this.message = data;
+            this.overlayer = data;
         }
+    },
+    components: {
+        message
     }
 }
 </script>
 
 <style scoped>
+ /*遮罩层*/
+.overlayer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.5);
+}
 .menu {
     display: none;
 }
@@ -258,7 +291,7 @@ export default {
     }
     .drop-down li a {
         text-decoration: none;
-        color:#000;
+        color: #000;
     }
     .drop-down div {
         font-size: 13px;
@@ -280,7 +313,7 @@ export default {
         width: 100%;
         height: 100%;
         z-index: 10;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.5);
     }
 }
 </style>
