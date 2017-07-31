@@ -50,8 +50,9 @@
 	#Artcontent .main{width: 1200px;margin:0 auto;padding-bottom: 4rem}
 	#Artcontent .main .maincontent{}
 	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;font-size: 1.5rem;letter-spacing: 2px;text-indent: 10px}
-	.arttime{line-height: 1rem;font-size: 0.8rem;border-bottom: 1px solid rgb(232,232,232);padding-bottom: 0.5rem}
+	.arttime{line-height: 1rem;font-size: 0.8rem;border-bottom: 1px solid rgb(232,232,232);padding-bottom: 0.5rem;text-align: center}
 	.artcontent{margin-top: 0.5rem}
+	.artcontent pre img{width: 100% !important}
 
 	@media only screen and (max-width: 768px){
 		#Artcontent .main{width: 100%}
