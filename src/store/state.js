@@ -16,5 +16,8 @@ export default {
     // footer的内容
     footer: '',
     // 路由参数
-    parameterId: '',
+    parameterId: '',  
+
+    // 网站须知的内容
+    webtips: '',
 }
