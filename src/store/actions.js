@@ -59,7 +59,19 @@ export default {
     get_footer(context) {
         ajax.get(API + 'message')
             .then(data => {
+
                 context.commit('set_footer', data.array);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    },  
+
+    //获取须知的内容
+    get_webtips(context) {
+        ajax.get(API + 'message')
+            .then(data => {
+                context.commit('set_webtips', data.array);
             })
             .catch(err => {
                 console.log(err);

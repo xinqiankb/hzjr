@@ -14,5 +14,8 @@ export default {
     // footer上面的三个栏目
     forumColumns: '',
     // footer的内容
-    footer: ''
+    footer: '',    
+
+    // 网站须知的内容
+    webtips: '',
 }
