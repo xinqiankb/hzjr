@@ -11,7 +11,7 @@
                             <a href="" class="t1">{{ item.title }}</a>
                         </p>
                         <p>{{ item.remark }}</p>
-                        <router-link to="/list/74" class="button">MORE ></router-link>
+                        <router-link :to="{name:'single',params:{id:item.id}}" class="button">MORE ></router-link>
                     </div>
                     <div>
                         <span>{{ item.create_at }}</span>

@@ -204,7 +204,7 @@
 	.readmore{position: absolute;right: 10px;bottom: 10px;color: #fff;padding: 0.4rem 0.8rem;background-color: #dea562;text-decoration: none}
 	.readmore:hover{background-color: #cd934f}
 	.pagebtn{cursor: pointer;}
-	.page{margin-top: 2rem;text-align: right;padding-bottom: 4rem}
+	.page{margin-top: 2rem;text-align: right;padding-bottom: 4rem;}
 	.page .pagelist i{color: #888;cursor: pointer;}
 	.pageactive{color: #000 !important}
 
@@ -220,5 +220,6 @@
 		.teambox .desc{margin-bottom:  0;margin-top: 0.2rem}
 		.readmore{left: 10px;padding: 0.2rem;font-size: 0.5rem;position: initial;margin-top: 0.2rem;display: inline-block;}
 		.listtltle{margin-top: 0.5rem;padding: 0}
+		.page{margin-top: 2rem;text-align: right;padding:0 2rem;padding-bottom: 4rem;}
 	} 
 </style>

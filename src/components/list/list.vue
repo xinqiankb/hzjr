@@ -53,6 +53,11 @@
 				type:"POST",
 				data:{'id':artid},
 				success:function(res){
+					var result = res.news;
+					var length = result.length;
+					for (var i = 0; i< length;i++){
+						
+					}
 					if(res.news !='null'){
 						that.article = res.news; 
 					}
