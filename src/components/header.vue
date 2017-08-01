@@ -28,7 +28,7 @@
         </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <a :herf='str.url' class="swiper-slide" v-for="str in banner" :style="{ backgroundImage: 'url(' + 'http://hzry.youjiadv.com/backend/web/' + str.img + ')' }"></a>
+                <a :herf='str.url' class="swiper-slide" v-for="str in banner" :style="{ backgroundImage: 'url(' + IMG_URL + str.img + ')' }"></a>
             </div>
             <div class="swiper-pagination swiper-pagination-white"></div>
         </div>
@@ -62,7 +62,8 @@ export default {
             dropDown: false,
             overlayer: false,
             message: false,
-            subShow: false
+            subShow: false,
+            IMG_URL
         }
     },
     updated() {
