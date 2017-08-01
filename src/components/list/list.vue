@@ -21,7 +21,6 @@
 								<article class="desc">
 									<pre v-html="item.content">{{item.content}}</pre>
 								</article>
-
 							</div>
 						</div>
 

@@ -3,7 +3,9 @@
         <div v-show="overlayer" class="overlayer" @touchmove.prevent>
         </div>
         <div class="nav">
-            <img :src="logo" alt="">
+            <router-link to="/">
+                <img :src="logo" alt="">
+            </router-link>    
             <img class="menu" src="./../../static/img/menu.svg" alt="" @click="dropDownBtn">
             <ul class="nav-bar">
                 <li>
@@ -12,7 +14,7 @@
                 <li ref='li' @mousemove="display(index,item.child.length)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-show="index!=0">
                     <router-link :class="{'default':index!=0}" class="title" to=''>{{ item.parents[0].name }}</router-link>
                     <div class="sub-column" v-show="active==index" v-bind:style="{ background:color, width:width+'px' }">
-                        <div class="sub-item" v-for="subColumns in item.child" @click="activeClass(index)">
+                        <div class="sub-item" v-for="subColumns in item.child" @click="activeClass(index)" v-on:click="parameter(subColumns.id)">
                             <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}" class="sub-name">
                                 {{ subColumns.name }}
                             </router-link>
@@ -21,6 +23,10 @@
                 </li>
                 <li>
                     <a class="default title" href="javascript:" @click="messageShow">在线留言</a>
+
+
+
+
                 </li>
             </ul>
         </div>
@@ -123,6 +129,10 @@ export default {
         messageHidden(data) {
             this.message = data;
             this.overlayer = data;
+        },
+        // 传递路由参数
+        parameter(id) {
+            this.$store.state.parameterId = id
         }
     },
     components: {

@@ -14,5 +14,7 @@ export default {
     // footer上面的三个栏目
     forumColumns: '',
     // footer的内容
-    footer: ''
+    footer: '',
+    // 路由参数
+    parameterId: '',
 }

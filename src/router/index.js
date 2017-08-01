@@ -5,7 +5,6 @@ import article from '@/components/article/index'
 import list from '@/components/list/list'
 import news from '@/components/news/news'
 import single from '@/components/single/single'
-import message from '@/components/message'
 
 Vue.use(Router)
 
@@ -35,11 +34,6 @@ export default new Router({
       path: '/single/:id',
       name: 'single',
       component: single
-    },
-    {
-      path: '/message',
-      name: 'message',
-      component: message
     }
   ]
 })
