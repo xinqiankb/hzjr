@@ -8,14 +8,9 @@
                 </p>
                 <img src="./../../static/img/footer-line.jpg" alt="" style="float:left">
                 <div class="footer-left-cont">
-                    <div class="footer-telMap-wrap">
-                        <div class="footer-tel">
-                            <img src="./../../static/img/l.png">
-                            <span>
-                                <b>您的财富全管家</b>
-                                <br>财富热线：{{ footer.wealth_number }}</span>
-                        </div>
-                        <a id="btn_ahowMap"></a>
+                     <div class="footer-addr-warp">
+                        <span>财富热线：</span>
+                        <p>{{ footer.wealth_number }}</p>
                     </div>
                     <div class="footer-addr-warp">
                         <span>地址：</span>
@@ -29,7 +24,7 @@
                 </div>
             </div>
             <ul>
-                <li v-for="(item,index) in columns" v-show="index!=0 && index!=4">
+                <li v-for="(item,index) in columns" v-show="index!=0">
                     <h3>{{ item.parents[0].name }}</h3>
                     <div v-for="subColumns in item.child">
                         <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}">
@@ -107,7 +102,6 @@ img {
 .footer-telMap-wrap {
     display: inline-block;
     width: 360px;
-    margin: 20px 0 0 30px;
     text-align: left;
     position: relative;
 }
@@ -251,6 +245,12 @@ img {
     }
     .footer-addr-warp p {
         width: 100%;
+    }
+    .footer-addr-warp{
+        margin-top:15px;
+    }
+    img{
+        width:100%;
     }
 }
 </style>

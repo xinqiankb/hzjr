@@ -3,7 +3,7 @@
          <div class="pic" v-bind:style="{ background: 'url('+IMG_URL+aboutUs.bgimage+')' }"></div>
         <div class="aboutUs-wrap">
             <img src="./../../../static/img/aboutUs.png" alt="">
-            <p class="p-title">{{ aboutUs.title }}</p>
+            <p class="p-title">关于我们</p>
             <p class="p-content">{{ aboutUs.remark }}</p>
         </div>
         <router-link to="/article/64" class="button">MORE ></router-link> 
