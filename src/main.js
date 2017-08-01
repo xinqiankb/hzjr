@@ -11,9 +11,12 @@ Vue.use(cddv);
 
 Vue.config.productionTip = false
 
+// 接口地址
 global.API = 'http://hzry.youjiadv.com/frontend/web/index.php?r=index%2F';
+// 补全图片路径
 global.IMG_URL = 'http://hzry.youjiadv.com/backend/web/';
 
+// 获取数据
 store.dispatch('get_columns');
 store.dispatch('get_logo');
 store.dispatch('get_banner');

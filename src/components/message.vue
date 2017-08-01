@@ -52,6 +52,7 @@ export default {
                 success: function(data){
                     if(data.ok==200){
                         alert('提交成功');
+                        _this.$emit('message',false)
                     }
                     else{
                         alert('提交失败');

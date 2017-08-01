@@ -6,7 +6,7 @@
 				<div class="group-list" style="padding-bottom:1rem">
 					<p class='listtltle'>{{article.title}}</p>
 					<p class='arttime'><span style="margin-right:0.5rem">来源:&nbsp;&nbsp;&nbsp;{{article.source}}</span>日期:&nbsp;&nbsp;&nbsp;{{article.create_at}}</p>
-					<p class='artcontent'><pre v-html='article.content'>{{article.content}}</pre></p>
+					<p class='artcontent'><p v-html='article.content'>{{article.content}}</p></p>
 				</div>	
 			</div>
 		</div>

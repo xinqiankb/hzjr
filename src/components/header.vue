@@ -11,7 +11,7 @@
                 <li>
                     <router-link class="title" to="/" @click="messageShow">首页</router-link>
                 </li>
-                <li ref='li' @mousemove="display(index,item.child.length)" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-show="index!=0">
+                <li ref='li' @mouseover="display(index,item.child.length)" @mouseleave="subHide" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-show="index!=0">
                     <router-link :class="{'default':index!=0}" class="title" to=''>{{ item.parents[0].name }}</router-link>
                     <div class="sub-column" v-show="active==index" v-bind:style="{ background:color, width:width+'px' }">
                         <div class="sub-item" v-for="subColumns in item.child" @click="activeClass(index)" v-on:click="parameter(subColumns.id)">
@@ -23,10 +23,6 @@
                 </li>
                 <li>
                     <a class="default title" href="javascript:" @click="messageShow">在线留言</a>
-
-
-
-
                 </li>
             </ul>
         </div>
@@ -65,7 +61,8 @@ export default {
             width: '',
             dropDown: false,
             overlayer: false,
-            message: false
+            message: false,
+            subShow: false
         }
     },
     updated() {
@@ -105,6 +102,9 @@ export default {
                 this.color = '#FFF';
                 this.width = this.$refs.li[i].clientWidth
             }
+        },
+        subHide() {
+            this.$store.state.active = 0;
         },
         activeClass(i) {
             this.$store.state.active = i;
