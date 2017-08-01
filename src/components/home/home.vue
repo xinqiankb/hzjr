@@ -5,11 +5,13 @@
     <dynamic></dynamic>
     <forum></forum>
     <footerBox></footerBox>
+    <Webtips></Webtips>
   </div>
 </template>
 
 <script>
 import HeaderNavbar from './../header'
+import Webtips from './../webtips'
 import about from './about'
 import dynamic from './dynamic'
 import forum from './forum'
@@ -19,7 +21,7 @@ export default {
   data() {
     return {}
   },
-  components: { HeaderNavbar,about,dynamic,forum,footerBox }
+  components: { HeaderNavbar,about,dynamic,forum,footerBox ,Webtips}
 }
 </script>
 
