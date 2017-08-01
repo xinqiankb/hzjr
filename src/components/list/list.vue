@@ -4,18 +4,17 @@
 		<div class="main">
 			<div class="maincontent"  style="">
 				<div class="group-list" style="padding-bottom:1rem">
-					<p class='listtltle'>MANAGEMENT TEAM</p>
-					<p class='listtltle' style="padding-top:0">团队介绍</p>
+					<p class='listtltle' style="padding-top:0"><span>{{title}}</span></p>
 				</div>				
 				<div class="group-list">
 					<div class="team">
 
-						<div class="teambox graybgc" v-for="item in article">
+						<div class="teambox graybgc" v-if="listshow" v-for="item in article">
 							<div class="imgbox"><img v-bind:src ="item.thumb" alt=""></div>
 							<div class="info">
 								<div class="infoname">
 									<p class="name">{{item.title}}</p>
-									<p class="subtitle">{{item.remark}}</p>
+									<p class="subtitle">{{item.create_at}}</p>
 									<p class="line "></p>
 								</div>
 								<article class="desc">
@@ -24,7 +23,7 @@
 
 							</div>
 						</div>
-
+						<div v-if="contentshow" style="text-align:center;">暂无内容</div>
 					</div>
 				</div>
 			</div>
@@ -41,7 +40,11 @@
 		components:{HeaderNavbar,footerBox},
 		data(){
 			return{
-				article:{}
+				article:{},
+				id:this.$route.params.id,
+				title:"",
+				listshow:true,
+				contentshow:false,
 			}
 		},
 		mounted() {
@@ -54,21 +57,55 @@
 				data:{'id':artid},
 				success:function(res){
 					var result = res.news;
-					console.log(res)
-					var length = result.length;
-					for (var i = 0; i< length;i++){
-						
+					if(result != ''){
+						that.article = result; 
 					}
-					if(res.news !='null'){
-						that.article = res.news; 
+					else{
+						that.listshow = false;
+						that.contentshow = true;
 					}
-					console.log(res)
+					if(res.name !=""){
+						that.title = res.name;
+					}
 				},
 				error: function(res){
 
 				}
 			})
-		}
+		},
+		watch:{
+		   '$route.params':'change'
+		},
+		methods:{
+			change:function(){
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			var that = this;
+			$.ajax({
+				url:API +'list',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					var result = res.news;
+					if(result != ''){
+						that.listshow = true;
+						that.contentshow = false;
+						that.article = result; 
+					}
+					else{
+						that.listshow = false;
+						that.contentshow = true;
+					}
+					if(res.name !=""){
+						that.title = res.name;
+					}
+				},
+				error: function(res){
+
+				}
+			})
+			}
+		},
 	}
 </script>
 
@@ -78,7 +115,8 @@
 	.teamlist .main .maincontent{}
 	.graybgc{background-color: #eee}
 	.main .maincontent .group-list{}
-	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;}
+	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;margin-top: 1rem;font-size: 1.3rem}
+	.listtltle span{border-bottom: 2px solid #333;padding: 0 0.2rem 0.2rem 0.2rem}
 	.teambox{margin-top: 2.5rem;padding: 2rem;}
 	.teambox:nth-of-type(1){margin-top: 0}
 	.teambox .imgbox{width: 10rem;margin-right: 2rem;display:inline-block;vertical-align: top}

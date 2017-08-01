@@ -2,13 +2,13 @@
 	<div class="news" id="news">
 		<HeaderNavbar></HeaderNavbar>
 		<div class="main">
-			<div class="maincontent">
+			<div class="maincontent" >
 				<div class="group-list" style="padding-bottom:1rem">
-					<p class='listtltle' style="">{{navname}}</p>
+					<p class='listtltle' style=""><span>{{navname}}</span></p>
 				</div>				
 				<div class="group-list">
 					<div class="team">
-						<div class="teambox graybgc" v-for="item in artlist">
+						<div class="teambox graybgc" v-if="listshow" v-for="item in artlist">
 							<div class="imgbox"><img src="../../../static/img/team.jpg" alt=""></div>
 							<div class="info">
 								<div class="infoname">
@@ -24,15 +24,16 @@
 							</div>
 							<router-link :to="{name:'single',params:{id:item.id}}" class="readmore">	MORE >	</router-link>					
 						</div>												
+						<div class="page" v-if="listshow">
+							<span class="pagebtn" @click="pre()">{{prepage}}</span>
+							<span class="pagelist" v-for="(item,index) in pagenum"><i @click='findpage(item.num)' :class="{'pageactive':(index+1) == nowpage}" style="margin-right:0.2rem">{{item.num}}</i></span>
+							<span class="pagebtn" @click="next">{{nextpage}}</span>
+							<span>当前第</span><span>{{nowpage}}</span>页,共<span>{{sumpage}}页</span>
+						</div>
 					</div>
 				</div>
-				<div class="page">
-					<span class="pagebtn" @click="pre()">{{prepage}}</span>
-					<span class="pagelist" v-for="(item,index) in pagenum"><i @click='findpage(item.num)' :class="{'pageactive':(index+1) == nowpage}" style="margin-right:0.2rem">{{item.num}}</i></span>
-					<span class="pagebtn" @click="next">{{nextpage}}</span>
-					<span>当前第</span><span>{{nowpage}}</span>页,共<span>{{sumpage}}页</span>
-				</div>
 			</div>
+			<div v-if="contentshow" style="text-align:center;">暂无内容</div>
 		</div>
 		<footerBox></footerBox>
 	</div>
@@ -55,6 +56,8 @@
 				pagelist:'',
 				nextpage:'下一页',
 				pagenum:"",
+				listshow:true,
+				contentshow:false,
 			}
 		},
 		mounted() {
@@ -68,13 +71,13 @@
 				data:{'id':artid},
 				success:function(res){
 					var allpage ;
-					console.log(res)
 					if(res.count != 0){
+						that.listshow = true;
+						that.contentshow = false;
 						that.artlist = res.news;
 						that.sumpage = res.count;
 						that.navname = res.name;
 						allpage = parseInt(res.count)/that.pagesize;
-						console.log(allpage)
 						if(allpage < 1){
 							that.pagenum = [{num:1}];
 							that.sumpage = 1;
@@ -91,6 +94,10 @@
 							}
 							that.pagenum = pagenumber;
 						}
+					}
+					else{
+						that.listshow = false;
+						that.contentshow = true;						
 					}
 				},
 				error: function(res){
@@ -177,8 +184,59 @@
 
 					}
 				})
+			},
+			change:function(){
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			var pagenumber = [] ;
+			var that = this;
+			$.ajax({
+				url:API +'list',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					var allpage ;
+					if(res.count != 0){
+						that.listshow = true;
+						that.contentshow = false;	
+						that.artlist = res.news;
+						that.sumpage = res.count;
+						allpage = parseInt(res.count)/that.pagesize;
+						console.log(allpage)
+						if(allpage < 1){
+							that.pagenum = [{num:1}];
+							that.sumpage = 1;
+						}
+						else{
+							that.sumpage = allpage;
+							for(var i = 0 ; i < allpage;i++){
+								var xx = {
+									num:'',
+								}
+								xx.num = i + 1;
+								pagenumber.push(xx);
+
+							}
+							that.pagenum = pagenumber;
+						}
+					}
+					else{
+						that.listshow = false;
+						that.contentshow = true;	
+					}
+					if(res.name != ''){
+						that.navname = res.name;
+					}
+				},
+				error: function(res){
+
+				}
+			})
 			}
-		}
+		},
+		watch:{
+		   '$route.params':'change'
+		},
 	}
 </script>
 <style scoped>
@@ -189,6 +247,7 @@
 	.graybgc:hover{box-shadow: 0 0 5px 5px #ddd;-webkit-box-shadow: 0 0 5px 5px #ddd;-o-box-shadow: 0 0 5px 5px #ddd;-moz-box-shadow: 0 0 5px 5px #ddd;}
 	.main .maincontent .group-list{}
 	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;font-size: 1.5rem;margin-top: 2rem}
+	.listtltle span{border-bottom: 2px solid #333;padding: 0 0.2rem 0.2rem 0.2rem}
 	.teambox{margin-top: 2.5rem;padding: 2rem;position: relative;padding-bottom: 15rem}
 	.teambox:nth-of-type(1){margin-top: 0}
 	.teambox .imgbox{width: 10rem;overflow:hidden;margin-right: 2rem;display:inline-block;vertical-align: top;float: left;}
