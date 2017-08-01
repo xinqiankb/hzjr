@@ -17,7 +17,6 @@ export default {
     footer: '',
     // 路由参数
     parameterId: '',  
-
     // 网站须知的内容
     webtips: '',
 }

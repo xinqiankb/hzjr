@@ -10,6 +10,7 @@
 						<p class="content" v-html='article.content'>{{article.content}}</p>
 					</p>
 				</div>
+				<div v-if="show" style="text-align:center;margin-top:3rem">暂无内容</div>
 			</div>
 		</div>
 	</div>
@@ -21,7 +22,8 @@ export default {
 	name: 'Artcontent',
 	data() {
 		return {
-			article: {},
+			article: '',
+			show: false
 		}
 	},
 	computed: {
@@ -31,20 +33,38 @@ export default {
 		})
 	},
 	created() {
+		var _this = this;
+		$.ajax({
+			url: API + 'detail',
+			type: "POST",
+			data: { 'id': this.$route.params.id },
+			success: function (res) {
+				if (res.data != 'null') {
+					_this.article = res.data;
+				}
+				if (res.data.content == '') {
+					_this.show = true;
+				}
+			},
+			error: function (res) {
 
+			}
+		})
 	},
 	watch: {
 		parameterId(state) {
-			var that = this;
+			var _this = this;
 			$.ajax({
 				url: API + 'detail',
 				type: "POST",
 				data: { 'id': state },
 				success: function (res) {
 					if (res.data != 'null') {
-						that.article = res.data;
+						_this.article = res.data;
 					}
-					console.log(res)
+					if (res.data.content == '') {
+						_this.show = true;
+					}
 				},
 				error: function (res) {
 
