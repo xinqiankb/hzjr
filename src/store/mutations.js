@@ -44,7 +44,6 @@ export default {
         var content = payload.must_know;
         var reg = new RegExp("\r\n", "g");
         var content = content.replace(reg,'</br>');
-        console.log(content)
         state.webtips = content;
     }
 }

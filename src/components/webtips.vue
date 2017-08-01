@@ -26,7 +26,6 @@
 	    },
 	    mounted(){
 	    	var that = this;
-	    	// that.contentstatus = true;
 	    		if(ajax.get_cookie('popped') == ''){
 	    			that.contentstatus = true;
 	    		}
@@ -36,10 +35,6 @@
 	    methods:{
 	    	tipshide: function(){
 	    		var that = this;
-	    		// if(ajax.get_cookie('popped') != ''){
-	    		// 	that.contentstatus = true;
-	    		// }
-	    		// document.cookie="popped=yes";
 	    		that.contentstatus = !that.contentstatus;
 	    	},
 	    	windowclose: function(){

@@ -46,14 +46,14 @@ export default {
           var offset; 
           var end; 
         　if (document.cookie.length > 0) {
-        　offset = document.cookie.indexOf(search)
-        　if (offset != -1) {
-        　offset += search.length
-        　end = document.cookie.indexOf(";", offset);
-        　if (end == -1)
-        　end = document.cookie.length;
-        　returnvalue=unescape(document.cookie.substring(offset, end))
-        　}
+            　offset = document.cookie.indexOf(search)
+            　if (offset != -1) {
+            　    offset += search.length
+            　    end = document.cookie.indexOf(";", offset);
+            　if (end == -1)
+            　    end = document.cookie.length;
+            　    returnvalue=unescape(document.cookie.substring(offset, end))
+            　}
         　}
         　return returnvalue;
     }
