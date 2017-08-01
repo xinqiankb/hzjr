@@ -1,19 +1,22 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import Http from 'vue-resource'
 import router from './router'
 import store from './store'
 import jquery from './../static/js/jquery.js'
+import Cddv from 'vue-cdd-validator';
+
+// 表单验证
+let cddv = new Cddv()
+Vue.use(cddv);
 
 Vue.config.productionTip = false
-Vue.use(Http);
 
-
+// 接口地址
 global.API = 'http://hzry.youjiadv.com/frontend/web/index.php?r=index%2F';
+// 补全图片路径
 global.IMG_URL = 'http://hzry.youjiadv.com/backend/web/';
 
+// 获取数据
 store.dispatch('get_columns');
 store.dispatch('get_logo');
 store.dispatch('get_banner');
@@ -21,8 +24,8 @@ store.dispatch('get_aboutUs');
 store.dispatch('get_news');
 store.dispatch('get_forumColumns');
 store.dispatch('get_footer');
+store.dispatch('get_webtips');
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,

@@ -2,61 +2,27 @@
 	<div id="teamlist" class="teamlist">
 		<HeaderNavbar></HeaderNavbar>
 		<div class="main">
-			<div class="maincontent">
+			<div class="maincontent"  style="">
 				<div class="group-list" style="padding-bottom:1rem">
-					<p class='listtltle'>MANAGEMENT TEAM</p>
-					<p class='listtltle' style="padding-top:0">团队介绍</p>
+					<p class='listtltle' style="padding-top:0"><span>{{title}}</span></p>
 				</div>				
 				<div class="group-list">
 					<div class="team">
-						<div class="teambox graybgc">
-							<div class="imgbox"><img src="../../../static/img/team.jpg" alt=""></div>
+
+						<div class="teambox graybgc" v-if="listshow" v-for="item in article">
+							<div class="imgbox"><img v-bind:src ="img+item.thumb" alt=""></div>
 							<div class="info">
 								<div class="infoname">
-									<p class="name">xinqian</p>
-									<p class="subtitle">投资总监</p>
+									<p class="name">{{item.title}}</p>
+									<p class="subtitle">{{item.create_at}}</p>
 									<p class="line "></p>
 								</div>
 								<article class="desc">
-									<span>12年外资银行财富管理从业及管理经验，6年中资银行从业经验；历任外资银行零售银行副总裁，战略发展总监，培训总监，市场总监等职。丰富的中资银行一线工作经验，从事过柜员，国际业务，信贷，管理等多个岗位的工作。积累了丰富销售经验及团队管理经验，熟悉市场及产品投资策略和中高端客户金融需求，拥有丰富的财富管理业务实践经验，是外资银行在国内开展财富管理业务的第一批实践者</span>
-								</article>							
-								<article class="work">
-									<p　class = 'workcareer'>工作经历</p>
-									<p class="careerlist">
-												新加坡星展银行 战略及市场总监、副总裁<br>
-												苏格兰皇家银行（原荷兰银行） 零售银行中国区业务执行总监、副总裁<br>
-												荷兰银行 零售银行战略发展总监、培训总监<br>
-												花旗银行上海分行 零售银行贵宾客户经理<br>
-												中国农业银行无锡分行 客户经理
-									</p>
+									<pre v-html="item.content">{{item.content}}</pre>
 								</article>
-
-							</div>
-						</div>						
-						<div class="teambox graybgc">
-							<div class="imgbox"><img src="../../../static/img/team.jpg" alt=""></div>
-							<div class="info">
-								<div class="infoname">
-									<p class="name">xinqian</p>
-									<p class="subtitle">投资总监</p>
-									<p class="line "></p>
-								</div>
-								<article class="desc">
-									<span>12年外资银行财富管理从业及管理经验，6年中资银行从业经验；历任外资银行零售银行副总裁，战略发展总监，培训总监，市场总监等职。丰富的中资银行一线工作经验，从事过柜员，国际业务，信贷，管理等多个岗位的工作。积累了丰富销售经验及团队管理经验，熟悉市场及产品投资策略和中高端客户金融需求，拥有丰富的财富管理业务实践经验，是外资银行在国内开展财富管理业务的第一批实践者</span>
-								</article>							
-								<article class="work">
-									<p　class = 'workcareer'>工作经历</p>
-									<p class="careerlist">
-												新加坡星展银行 战略及市场总监、副总裁<br>
-												苏格兰皇家银行（原荷兰银行） 零售银行中国区业务执行总监、副总裁<br>
-												荷兰银行 零售银行战略发展总监、培训总监<br>
-												花旗银行上海分行 零售银行贵宾客户经理<br>
-												中国农业银行无锡分行 客户经理
-									</p>
-								</article>
-
 							</div>
 						</div>
+						<div v-if="contentshow" style="text-align:center;">暂无内容</div>
 					</div>
 				</div>
 			</div>
@@ -73,9 +39,73 @@
 		components:{HeaderNavbar,footerBox},
 		data(){
 			return{
-
+				article:{},
+				id:this.$route.params.id,
+				title:"",
+				listshow:true,
+				contentshow:false,
+				img: IMG_URL
 			}
-		}
+		},
+		mounted() {
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			var that = this;
+			$.ajax({
+				url:API +'list',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					var result = res.news;
+					if(result != ''){
+						that.article = result; 
+					}
+					else{
+						that.listshow = false;
+						that.contentshow = true;
+					}
+					if(res.name !=""){
+						that.title = res.name;
+					}
+				},
+				error: function(res){
+
+				}
+			})
+		},
+		watch:{
+		   '$route.params':'change'
+		},
+		methods:{
+			change:function(){
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			var that = this;
+			$.ajax({
+				url:API +'list',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					var result = res.news;
+					if(result != ''){
+						that.listshow = true;
+						that.contentshow = false;
+						that.article = result; 
+					}
+					else{
+						that.listshow = false;
+						that.contentshow = true;
+					}
+					if(res.name !=""){
+						that.title = res.name;
+					}
+				},
+				error: function(res){
+
+				}
+			})
+			}
+		},
 	}
 </script>
 
@@ -85,7 +115,8 @@
 	.teamlist .main .maincontent{}
 	.graybgc{background-color: #eee}
 	.main .maincontent .group-list{}
-	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;}
+	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;margin-top: 1rem;font-size: 1.3rem}
+	.listtltle span{border-bottom: 2px solid #333;padding: 0 0.2rem 0.2rem 0.2rem}
 	.teambox{margin-top: 2.5rem;padding: 2rem;}
 	.teambox:nth-of-type(1){margin-top: 0}
 	.teambox .imgbox{width: 10rem;margin-right: 2rem;display:inline-block;vertical-align: top}
@@ -109,6 +140,7 @@
 		.teambox .desc{}
 		.teambox .desc{margin-bottom:  0;margin-top: 0.2rem}
 		.readmore{left: 10px;padding: 0.2rem;font-size: 0.5rem;position: initial;margin-top: 0.2rem;display: inline-block;}
+		.maincontent{padding-bottom:3rem}
 	} 
 
 </style>

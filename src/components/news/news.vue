@@ -2,50 +2,38 @@
 	<div class="news" id="news">
 		<HeaderNavbar></HeaderNavbar>
 		<div class="main">
-			<div class="maincontent">
+			<div class="maincontent" >
 				<div class="group-list" style="padding-bottom:1rem">
-					<p class='listtltle'>HOT NEWS</p>
-					<p class='listtltle' style="padding-top:0">新闻中心</p>
+					<p class='listtltle' style=""><span>{{navname}}</span></p>
 				</div>				
 				<div class="group-list">
 					<div class="team">
-						<div class="teambox graybgc">
+						<div class="teambox graybgc" v-if="listshow" v-for="item in artlist">
 							<div class="imgbox"><img src="../../../static/img/team.jpg" alt=""></div>
 							<div class="info">
 								<div class="infoname">
-									<p class="name">xinqian</p>
-									<p class="subtitle">投资总监<span class="createtime" style="margin-left:1rem">2017.07.25 08:08</span></p>
+									<p class="name">{{item.title}}</p>
+									<p class="subtitle"><span class="createtime" style="margin:0.2rem 0">{{item.create_at}}</span></p>
 									<p class="line "></p>
 								</div>
 							</div>
 							<div class="info">
-								<span class="subtitle">工作经历</span>
 								<article class="desc">
-										<span>12年外资银行财富管理从业及管理经验，6年中资银行从业经验；历任外资银行零售银行副总裁，战略发展总监，培训总监，市场总监等职。丰富的中资银行一线工作经验，从事过柜员，国际业务，信贷，管理等多个岗位的工作。积累了丰富销售经验及团队管理经验，熟悉市场及产品投资策略和中高端客户金融需求，拥有丰富的财富管理业务实践经验，是外资银行在国内开展财富管理业务的第一批实践者</span>
+										<span>{{item.remark}}</span>
 								</article>
-							</div>							
-							<span class="readmore">MORE ></span>
-						</div>						
-						<div class="teambox graybgc">
-							<div class="imgbox"><img src="../../../static/img/team.jpg" alt=""></div>
-							<div class="info">
-								<div class="infoname">
-									<p class="name">xinqian</p>
-									<p class="subtitle">投资总监<span class="createtime" style="margin-left:1rem">2017.07.25 08:08</span></p>
-									<p class="line "></p>
-								</div>
 							</div>
-							<div class="info">
-								<span class="subtitle">工作经历</span>
-								<article class="desc">
-										<span>12年外资银行财富管理从业及管理经验，6年中资银行从业经验；历任外资银行零售银行副总裁，战略发展总监，培训总监，市场总监等职。丰富的中资银行一线工作经验，从事过柜员，国际业务，信贷，管理等多个岗位的工作。积累了丰富销售经验及团队管理经验，熟悉市场及产品投资策略和中高端客户金融需求，拥有丰富的财富管理业务实践经验，是外资银行在国内开展财富管理业务的第一批实践者</span>
-								</article>
-							</div>							
-							<span class="readmore">MORE ></span>
-						</div>						
+							<router-link :to="{name:'single',params:{id:item.id}}" class="readmore">	MORE >	</router-link>					
+						</div>												
+						<div class="page" v-if="listshow">
+							<span class="pagebtn" @click="pre()">{{prepage}}</span>
+							<span class="pagelist" v-for="(item,index) in pagenum"><i @click='findpage(item.num)' :class="{'pageactive':(index+1) == nowpage}" style="margin-right:0.2rem">{{item.num}}</i></span>
+							<span class="pagebtn" @click="next">{{nextpage}}</span>
+							<span>当前第</span><span>{{nowpage}}</span>页,共<span>{{sumpage}}页</span>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div v-if="contentshow" style="text-align:center;">暂无内容</div>
 		</div>
 		<footerBox></footerBox>
 	</div>
@@ -59,9 +47,196 @@
 		components:{HeaderNavbar,footerBox},
 		data(){
 			return{
-
+				artlist:'',
+				nowpage:1,
+				pagesize:8,
+				sumpage:'',
+				navname:'',
+				prepage:'上一页',
+				pagelist:'',
+				nextpage:'下一页',
+				pagenum:"",
+				listshow:true,
+				contentshow:false,
 			}
-		}
+		},
+		mounted() {
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			var pagenumber = [] ;
+			var that = this;
+			$.ajax({
+				url:API +'list',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					var allpage ;
+					if(res.count != 0){
+						that.listshow = true;
+						that.contentshow = false;
+						that.artlist = res.news;
+						that.sumpage = res.count;
+						that.navname = res.name;
+						allpage = parseInt(res.count)/that.pagesize;
+						if(allpage < 1){
+							that.pagenum = [{num:1}];
+							that.sumpage = 1;
+						}
+						else{
+							that.sumpage = allpage;
+							for(var i = 0 ; i < allpage;i++){
+								var xx = {
+									num:'',
+								}
+								xx.num = i + 1;
+								pagenumber.push(xx);
+
+							}
+							that.pagenum = pagenumber;
+						}
+					}
+					else{
+						that.listshow = false;
+						that.contentshow = true;						
+					}
+				},
+				error: function(res){
+
+				}
+			})
+		},
+		methods:{
+			pre:function(e){
+				var artid = this.$route.params.id;
+				var that = this;
+				var nowpage = that.nowpage;
+				var sumpage = that.sumpage;
+				var sendpage = nowpage - 2;
+				if(nowpage <= 1){
+					nowpage = 1;
+				}
+				else{
+					that.nowpage --;
+				}
+				console.log(sendpage)
+				$.ajax({
+					url:API +'page',
+					type:"POST",
+					data:{'id':artid,'page':sendpage,'size':that.pagesize},
+					success:function(res){
+						console.log(res.news)
+						var data = res.news;
+						that.artlist = "";
+						that.artlist = data;
+					},
+					error: function(res){
+
+					}
+				})
+
+			},
+			next: function(e){
+				var artid = this.$route.params.id;
+				var that = this;
+				var nowpage = that.nowpage;
+				var sumpage = that.sumpage;
+				var sendpage = nowpage;
+				if(nowpage >= sumpage){
+					sendpage = sumpage - 1;
+				}
+				else{
+					that.nowpage ++;
+				}
+				console.log(sendpage + 'xx')
+				$.ajax({
+					url:API +'page',
+					type:"POST",
+					data:{'id':artid,'page':sendpage,'size':that.pagesize},
+					success:function(res){
+						var data = res.news;
+						that.artlist = "";
+						that.artlist = data;
+					},
+					error: function(res){
+
+					}
+				})
+			},
+			findpage:function(index){
+				var artid = this.$route.params.id;
+				var that = this;
+				var sendpage = index - 1;
+				that.nowpage = index;
+				if(that.nowpage >=5){
+					that.nowpage = 5;
+				}
+				var sumpage = that.sumpage;
+				$.ajax({
+					url:API +'page',
+					type:"POST",
+					data:{'id':artid,'page':sendpage,'size':that.pagesize},
+					success:function(res){
+						var data = res.news;
+						that.artlist = "";
+						that.artlist = data;
+					},
+					error: function(res){
+
+					}
+				})
+			},
+			change:function(){
+			var artid = this.$route.params.id;
+			var datas= {'id':11};
+			var pagenumber = [] ;
+			var that = this;
+			$.ajax({
+				url:API +'list',
+				type:"POST",
+				data:{'id':artid},
+				success:function(res){
+					var allpage ;
+					if(res.count != 0){
+						that.listshow = true;
+						that.contentshow = false;	
+						that.artlist = res.news;
+						that.sumpage = res.count;
+						allpage = parseInt(res.count)/that.pagesize;
+						console.log(allpage)
+						if(allpage < 1){
+							that.pagenum = [{num:1}];
+							that.sumpage = 1;
+						}
+						else{
+							that.sumpage = allpage;
+							for(var i = 0 ; i < allpage;i++){
+								var xx = {
+									num:'',
+								}
+								xx.num = i + 1;
+								pagenumber.push(xx);
+
+							}
+							that.pagenum = pagenumber;
+						}
+					}
+					else{
+						that.listshow = false;
+						that.contentshow = true;	
+					}
+					if(res.name != ''){
+						that.navname = res.name;
+					}
+				},
+				error: function(res){
+
+				}
+			})
+			}
+		},
+		watch:{
+		   '$route.params':'change'
+		},
 	}
 </script>
 <style scoped>
@@ -71,7 +246,8 @@
 	.graybgc{box-shadow: 0 0 5px 5px #eee;-webkit-box-shadow: 0 0 5px 5px #eee;-o-box-shadow: 0 0 5px 5px #eee;-moz-box-shadow: 0 0 5px 5px #eee;cursor: pointer;}
 	.graybgc:hover{box-shadow: 0 0 5px 5px #ddd;-webkit-box-shadow: 0 0 5px 5px #ddd;-o-box-shadow: 0 0 5px 5px #ddd;-moz-box-shadow: 0 0 5px 5px #ddd;}
 	.main .maincontent .group-list{}
-	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;}
+	.listtltle{width: 100%;text-align:center;padding: 0.5rem 0;font-size: 1.5rem;margin-top: 2rem}
+	.listtltle span{border-bottom: 2px solid #333;padding: 0 0.2rem 0.2rem 0.2rem}
 	.teambox{margin-top: 2.5rem;padding: 2rem;position: relative;padding-bottom: 15rem}
 	.teambox:nth-of-type(1){margin-top: 0}
 	.teambox .imgbox{width: 10rem;overflow:hidden;margin-right: 2rem;display:inline-block;vertical-align: top;float: left;}
@@ -84,8 +260,12 @@
 	.teambox .desc{font-size: 0.7rem;color: #888;letter-spacing: 0.5px;margin: 1rem 0;line-height: 1.2rem}
 	.teambox .work .workcareer{color: #777;font-size: 0.8rem;margin-bottom: 0.5rem}
 	.teambox .work .careerlist{color: #999;font-size: 0.7rem;line-height: 1.4rem}
-	.readmore{position: absolute;right: 10px;bottom: 10px;color: #fff;padding: 0.4rem 0.8rem;background-color: #dea562}
+	.readmore{position: absolute;right: 10px;bottom: 10px;color: #fff;padding: 0.4rem 0.8rem;background-color: #dea562;text-decoration: none}
 	.readmore:hover{background-color: #cd934f}
+	.pagebtn{cursor: pointer;}
+	.page{margin-top: 2rem;text-align: right;padding-bottom: 4rem;}
+	.page .pagelist i{color: #888;cursor: pointer;}
+	.pageactive{color: #000 !important}
 
 
 	@media only screen and (max-width: 768px){
@@ -98,5 +278,7 @@
 		.teambox .desc{}
 		.teambox .desc{margin-bottom:  0;margin-top: 0.2rem}
 		.readmore{left: 10px;padding: 0.2rem;font-size: 0.5rem;position: initial;margin-top: 0.2rem;display: inline-block;}
+		.listtltle{margin-top: 0.5rem;padding: 0}
+		.page{margin-top: 2rem;text-align: right;padding:0 2rem;padding-bottom: 4rem;}
 	} 
 </style>

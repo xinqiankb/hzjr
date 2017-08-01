@@ -31,7 +31,7 @@ export default new Router({
       component: news
     },    
     {
-      path: '/single',
+      path: '/single/:id',
       name: 'single',
       component: single
     }

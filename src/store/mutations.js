@@ -37,6 +37,14 @@ export default {
     //设置footer的内容
     set_footer (state,payload) {
         state.footer = payload;
+    }, 
+
+    //设置网站须知的内容
+    set_webtips (state,payload) {
+        var content = payload.must_know;
+        var reg = new RegExp("\r\n", "g");
+        var content = content.replace(reg,'</br>');
+        state.webtips = content;
     }
 }
  
