@@ -6,20 +6,27 @@
                    <img @click="close" src="./../../static/img/close.svg" alt="">
                 </h3>
                 <div class="input">
-                     <label>留言主题&nbsp; <input type="text" v-cddv-input:nonvoid="{id:'theme',format:true,title:'*'}" name="theme" v-model="theme"></label>
+                     <label>留言主题: </label>
+                     <input type="text" v-cddv-input:nonvoid="{id:'theme',format:true,title:'*'}" name="theme" v-model="theme"></label>
                      <div v-cddv-msg:theme></div>  
                 </div>
                 <div class="input">
-                     <label>联系人&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" v-cddv-input:reg="{id:'linkman',format:'RealName',title:'*'}" name="linkman" v-model="linkman"></label>
+                     <label>联系人: </label>
+                     <input type="text" v-cddv-input:reg="{id:'linkman',format:'RealName',title:'*'}" name="linkman" v-model="linkman">
                      <div v-cddv-msg:linkman></div>   
                 </div>
                 <div class="input">
-                     <label>联系电话&nbsp; <input type="text" v-cddv-input:reg="{id:'tell',format:'Mobile',title:'*'}" name="linkway" v-model="linkway"></label>
+                     <label>联系电话:</label>
+                     <input type="text" v-cddv-input:reg="{id:'tell',format:'Mobile',title:'*'}" name="linkway" v-model="linkway">
                      <div v-cddv-msg:tell></div>  
                 </div>
-                <textarea cols="47" rows="10" name="content" v-model="content"></textarea>
+                <div class="input">
+                <textarea cols="40" rows="5" name="content" v-model="content" placeholder="请输入留言内容"></textarea>
+                 </div>
             </form>
-            <input v-cddv-final-check @click="submit" class="submit submit-check-failed" type="submit" value="提交">
+            <div class="input">
+                <input v-cddv-final-check @click="submit" class="submit submit-check-failed" type="submit" value="提交">
+            </div>
         </div>  
     </div>
 </template>
@@ -31,7 +38,7 @@ export default {
             theme: '',
             linkman: '',
             linkway: '',
-            content: '请输入留言内容，20-500个字符'
+            content: ''
         }
     },
     methods:{
@@ -93,40 +100,71 @@ export default {
     padding-bottom: 2rem;
 }
 .form h3 {
-    height: 66px;
-    background: #FCFCFC;
-    line-height: 66px;
+    /*height: 66px;*/
+    /*background: #FCFCFC;*/
+    background-color: #dcc79f;
+    line-height: 3rem;
     text-indent: 2rem;
     position: relative;
+    color: #333;
+    font-weight: normal;;
 }
 .form h3 img {
-    width: 25px;
+    width: 15px;
     position: absolute;
     right: 2rem;
-    top: 1.1rem;
+    top: 0.8rem;
+    cursor: pointer;
 }
 .form .input {
     width: 400px;
     margin: 0 auto;
 }
+
+.form .input label {
+    display: inline-block;
+    width: 70px;
+    text-align: left;
+    font-size: 0.8rem
+}
 .form input {
-    width: 80%;
-    height: 30px;
+    width: calc(400px - 150px);
+    width: -webkit-calc(400px - 150px);
+    width: -o-calc(400px - 150px);
+    width: -moz-calc(400px - 150px);
+    height: 25px;
     margin: 0 auto;
+    line-height: 25px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    text-indent: 0.2rem
 }
 textarea {
-    margin: 2rem auto;
+    /*margin: 1rem auto;*/
     display: block;
+    margin-top: 1rem;
     font-size: 15px;
+    border-radius: none;
+    border:1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: calc(400px - 60px);
+    width: -webkit-calc(400px - 60px);
+    width: -o-calc(400px - 60px);
+    width: -moz-calc(400px - 60px);
+    outline: none
 }
 .submit {
     display: block;
-    width: 66% !important;
-    height: 40px !important;
+    width: calc(400px - 45px) !important;
+    width: -webkit-calc(400px - 10px) !important;
+    width: -o-calc(400px - 10px) !important;
+    width: -moz-calc(400px - 10px) !important;
+    height: 30px !important;
     font-size: 15px !important;
+    margin:0.5rem 0 0 0  !important;
+    cursor: pointer;
 }
 .submit:hover {
     background: #CCC;

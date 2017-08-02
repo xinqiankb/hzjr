@@ -7,6 +7,7 @@
             <div>
                 <p>{{ item.name }}</p>
                 <hr>
+                <p>{{item.remark}}</p>
                 <router-link :to="{name:item.list_type,params:{id:item.id}}">MORE ></router-link>
             </div>
         </div>
@@ -61,9 +62,10 @@ img {
 }
 
 .forum-club-cont div:first-child+div a {
-    position: absolute;
+    /*position: absolute;*/
+    display: inline-block;
     bottom: 0;
-    width: 160px;
+    width: 125px;
     height: 40px;
     padding: 0;
     background-repeat: no-repeat;
@@ -84,7 +86,7 @@ img {
 hr {
     margin-top: 15px;
     margin-bottom: 30px;
-    width: 50px;
+    width: 125px;
     height: 1px;
     background: #666;
 }
@@ -105,18 +107,24 @@ hr {
     }
     .forum-club-cont div:first-child+div a {
         right: 0;
+        position: absolute;
     }
     .forum-club-cont div:first-child+div a {
-        top: 5px;
+        top: 0px;
     }
     .forum-club-cont div:first-child+div p {
         font-size: 1rem;
     }
     .forum-club-cont div:first-child+div a {
-        width: 65px;
+        width: auto;
         font-size: 10px;
-        height: 35px;
-        line-height: 35px;
+        height: 2rem;
+        line-height: 2rem;
+        /*line-height: 0.2rem;*/
+        padding: 0rem 0.8rem
     }
+    hr{width: 65px}
+    .forum-club-cont{margin-bottom: 60px}
+    .forum-club-cont:last-child{margin-bottom: 10px}
 }
 </style>

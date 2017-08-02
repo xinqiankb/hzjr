@@ -11,16 +11,26 @@
                 <li>
                     <router-link class="title" to="/" @click="messageShow">首页</router-link>
                 </li>
-                <li ref='li' @mouseover="display(index,item.child.length)" @mouseleave="subHide" @click="activeClass(index)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-show="index!=0">
+                <li ref='li' @mouseover="display(index,item.child.length)" @click="activeClass(index)" @mouseleave="subHide"  v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index,'navlist':1==1} " v-show="index!=0">
                     <router-link :class="{'default':index!=0}" class="title" to=''>{{ item.parents[0].name }}</router-link>
-                    <div class="sub-column" v-show="active==index" v-bind:style="{ background:color, width:width+'px' }">
+                    <div class="sub-column" v-if="active==index" v-bind:style="{ width:width}">
+                        <div class="sub-item"  v-for="subColumns in item.child"  v-on:click="parameter(subColumns.id)" @click="activeClasss()">
+                            <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}" class="sub-name" >
+                                {{ subColumns.name }}
+                            </router-link>
+                        </div>
+                    </div>
+                </li>                
+<!--                 <li ref='li' @mouseover="display(index,item.child.length)" @mouseleave="subHide" @click="activeClass(index,item.child.length)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-show="index!=0">
+                    <router-link :class="{'default':index!=0}" class="title" to=''>{{ item.parents[0].name }}</router-link>
+                    <div class="sub-column" v-show="active==index" v-bind:style="{ background:color}">
                         <div class="sub-item" v-for="subColumns in item.child" @click="activeClass(index)" v-on:click="parameter(subColumns.id)">
                             <router-link :to="{name:subColumns.list_type,params:{id:subColumns.id}}" class="sub-name">
                                 {{ subColumns.name }}
                             </router-link>
                         </div>
                     </div>
-                </li>
+                </li> -->
                 <li>
                     <a class="default title" href="javascript:" @click="messageShow">在线留言</a>
                 </li>
@@ -63,6 +73,7 @@ export default {
             overlayer: false,
             message: false,
             subShow: false,
+            xx:false,
             IMG_URL
         }
     },
@@ -93,23 +104,22 @@ export default {
     methods: {
         display(i, len) {
             this.$store.state.active = i;
-            // 根据子栏目个数来判断背景颜色
+            // console.log(i)
+            // // 根据子栏目个数来判断背景颜色
             if (len == 0) {
-                this.color = 'transparent';
+                this.color = '#fff';
                 //设置子栏目宽度
-                this.width = this.$refs.li[i].clientWidth
             }
             else {
                 this.color = '#FFF';
-                this.width = this.$refs.li[i].clientWidth
             }
         },
         subHide() {
             this.$store.state.active = 0;
         },
         activeClass(i) {
-            this.$store.state.active = i;
-        },
+            this.$store.state.active = 0;
+        },        
         // 移动端是否显示下拉菜单
         dropDownBtn() {
             if (this.dropDown == false) {
@@ -136,11 +146,7 @@ export default {
             this.$store.state.parameterId = id
         },
         change(){
-            if (this.dropDown == false) {
-                this.dropDown = true;
-                this.overlayer = true;
-            }
-            else {
+            if (this.dropDown != false) {
                 this.dropDown = false;
                 this.overlayer = false;
             }   
@@ -174,6 +180,7 @@ export default {
     display: none;
 }
 
+.xx{width: 100%}
 .nav {
     width: 1240px;
     height: 300px;
@@ -193,27 +200,38 @@ export default {
     position: absolute;
     right: 0rem;
     top: 3rem;
+    width: 700px
 }
 
 .nav-bar li {
-    display: inline-block;
+    /*display: inline-block;*/
+    display: table-cell;
+    width: 1%;
     font-size: 15px;
     color: #666;
-    height: 54px;
+    /*height: 54px;*/
+    line-height: 1.5rem;
+    text-align: center;
+    border-right: 1px solid #666
 }
 
 .title {
     text-decoration: none;
     color: #666;
     display: inline-block;
-    border-right: 1px solid #666;
+/*    border-right: 1px solid #666;
     padding-right: 2rem;
     margin-left: 1.2rem;
-    padding-left: 0.9rem;
+    padding-left: 0.9rem;*/
 }
 
 .active {
+    line-height: calc(1.5rem - 4px);
+    line-height: -webkit-calc(1.5rem - 4px);
+    line-height: -moz-calc(1.5rem - 4px);
+    line-height: -o-calc(1.5rem - 4px);
     border-bottom: 4px solid #cd934f;
+
 }
 
 .no-active {
@@ -222,15 +240,23 @@ export default {
 
 .nav-bar li:hover {
     border-bottom: 4px solid #cd934f;
+    line-height: calc(1.5rem - 4px);
+    line-height: -webkit-calc(1.5rem - 4px);
+    line-height: -moz-calc(1.5rem - 4px);
+    line-height: -o-calc(1.5rem - 4px);
 }
-
+.nav-bar li:hover .sub-column{display: table-cell !important;width: 17%}
+.nav-bar li:hover .sub-item{display: inline-block !important;width: 100%}
+/*.navlist > .sub-column{width: 100%}*/
 .sub-column {
     text-align: center;
-    margin-top: 2.3rem;
-    padding: 15px;
+    margin-top:4px;
+    padding: 1.6rem 0;
     padding-bottom: 20px;
     position: absolute;
     box-sizing: border-box;
+    background-color: #fff !important;
+    width: 100%
 }
 
 .sub-item {
@@ -238,6 +264,7 @@ export default {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+.sub-item:last-chlid{border-bottom: none !important}
 
 .sub-item a {
     text-decoration: none;
