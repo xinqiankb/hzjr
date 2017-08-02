@@ -4,7 +4,7 @@
         </div>
         <div class="nav">
             <router-link to="/">
-                <img :src="logo" alt="">
+                <img class="logo" :src="logo" alt="">
             </router-link>    
             <img class="menu" src="./../../static/img/menu.svg" alt="" @click="dropDownBtn">
             <ul class="nav-bar">
@@ -191,7 +191,8 @@ export default {
 
 .nav img {
     position: absolute;
-    top: 1.2rem
+    width: 25%;
+    top: 0.8rem
 }
 
 .nav-bar {
@@ -317,9 +318,10 @@ export default {
         height: 60px;
         border-bottom: 1px solid #f1f1f1;
     }
+    .logo{left: 0.5rem}
     .nav img {
         width: 60%;
-        top: 0.6rem;
+        top: -0.1rem;
     }
     .nav-bar {
         display: none;
