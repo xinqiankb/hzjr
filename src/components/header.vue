@@ -279,8 +279,11 @@ export default {
 }
 
 @media only screen and (max-width: 414px) {
-    .swiper-container {
-        display: none;
+    .swiper-container{
+        height: 120px;
+        background-repeat: no-repeat;
+        display: block;
+        margin-top: 0
     }
     .nav {
         width: 100%;
