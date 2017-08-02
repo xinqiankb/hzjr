@@ -217,7 +217,7 @@ img {
 @media only screen and (max-width: 414px) {
     .footer-box {
         height: auto;
-        margin-top: -5rem;
+        /*margin-top: -5rem;*/
     }
     .footer-wrap {
         width: 100%;
