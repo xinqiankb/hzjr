@@ -338,7 +338,7 @@ export default {
     }
     /*遮罩层*/
     .overlayer {
-        position: absolute;
+        position: fixed;
         left: 0;
         top: 61px;
         width: 100%;
