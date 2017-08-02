@@ -312,6 +312,7 @@ export default {
         z-index: 100;
         background: #FFF;
         right: 0;
+        top: 61px
     }
     .drop-down li {
         padding-top: 5px;
