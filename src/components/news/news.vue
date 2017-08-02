@@ -9,7 +9,7 @@
 				<div class="group-list">
 					<div class="team">
 						<div class="teambox graybgc" v-if="listshow" v-for="item in artlist">
-							<div class="imgbox"><img src="../../../static/img/team.jpg" alt=""></div>
+							<div class="imgbox"><img v-bind:src="item.thumb" alt=""></div>
 							<div class="info">
 								<div class="infoname">
 									<p class="name">{{item.title}}</p>

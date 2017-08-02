@@ -18,7 +18,7 @@
 									<p class="line "></p>
 								</div>
 								<article class="desc">
-									<pre v-html="item.content">{{item.content}}</pre>
+									<div v-html="item.content">{{item.content}}</div>
 								</article>
 							</div>
 						</div>
