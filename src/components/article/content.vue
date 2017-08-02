@@ -52,24 +52,46 @@ export default {
 		})
 	},
 	watch: {
-		parameterId(state) {
-			var _this = this;
-			$.ajax({
-				url: API + 'detail',
-				type: "POST",
-				data: { 'id': state },
-				success: function (res) {
-					if (res.data != 'null') {
-						_this.article = res.data;
-					}
-					if (res.data.content == '') {
-						_this.show = true;
-					}
-				},
-				error: function (res) {
+		"$route.params":'change',
+		// parameterId(state) {
+		// 	var _this = this;
+		// 	$.ajax({
+		// 		url: API + 'detail',
+		// 		type: "POST",
+		// 		data: { 'id': state },
+		// 		success: function (res) {
+		// 			if (res.data != 'null') {
+		// 				_this.article = res.data;
+		// 			}
+		// 			if (res.data.content == '') {
+		// 				_this.show = true;
+		// 			}
+		// 		},
+		// 		error: function (res) {
 
+		// 		}
+		// 	})
+		// }
+	},
+	methods:{
+		change: function(){
+		var _this = this;
+		$.ajax({
+			url: API + 'detail',
+			type: "POST",
+			data: { 'id': this.$route.params.id },
+			success: function (res) {
+				if (res.data != 'null') {
+					_this.article = res.data;
 				}
-			})
+				if (res.data.content == '') {
+					_this.show = true;
+				}
+			},
+			error: function (res) {
+
+			}
+		})
 		}
 	}
 }

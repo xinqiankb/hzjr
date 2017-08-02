@@ -134,10 +134,23 @@ export default {
         // 传递路由参数
         parameter(id) {
             this.$store.state.parameterId = id
+        },
+        change(){
+            if (this.dropDown == false) {
+                this.dropDown = true;
+                this.overlayer = true;
+            }
+            else {
+                this.dropDown = false;
+                this.overlayer = false;
+            }   
         }
     },
     components: {
         message
+    },
+    watch:{
+        '$route.params':'change',
     }
 }
 </script>

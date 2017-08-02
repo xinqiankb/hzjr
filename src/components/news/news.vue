@@ -278,7 +278,7 @@
 		.teambox .desc{}
 		.teambox .desc{margin-bottom:  0;margin-top: 0.2rem}
 		.readmore{left: 10px;padding: 0.2rem;font-size: 0.5rem;position: initial;margin-top: 0.2rem;display: inline-block;}
-		.listtltle{margin-top: 0.5rem;padding: 0}
+		.listtltle{margin-top: 0.5rem;padding: 0;font-size: 1.3rem}
 		.page{margin-top: 2rem;text-align: right;padding:0 2rem;padding-bottom: 4rem;}
 	} 
 </style>
