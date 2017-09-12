@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-  
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
-    <title>浙江融熠资产管理有限公司</title>
-    <style type="text/css">
-    	@media only screen and (max-width: 768px){
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport id=viewport content="width=device-width,initial-scale=1"><meta name="keywords" id="keywords" content=""><meta name="description" id="description" content=""><title>浙江融熠资产管理有限公司</title><style type=text/css>@media only screen and (max-width: 768px){
     		.content img{width: 100% !important;height: auto !important;}
     		.artcontent img{width: 100% !important;height: auto !important;}
     		.content{padding-bottom: 2rem;text-indent: 0rem !important}
@@ -14,12 +6,24 @@
     		body{height: 100%}
     		#app{height: 100%;min-height: 100%}
     		.footer-box{position: absolute;}
+    	}</style><link href=./static/css/app.685806c0d5623f58dac2b7b90c997d85.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.063dda5c22c9d753a0ce.js></script><script type=text/javascript src=./static/js/vendor.33da872f5b43281c4af0.js></script><script type=text/javascript src=./static/js/app.69671ad149f997b82c8e.js></script><script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script></body></html>
+<script type="text/javascript">
+	// 获取设置网站关键字
+	$(function(){
+    var url = 'http://www.rongyi-fund.com/frontend/web/index.php?r=index%2Fmessage'
+    $.ajax({
+    	url: url,
+    	type: 'GET',
+    	success: function(res) {
+        var data = res.array
+        var keywords = data.seo_keywords
+        var desc = data.seo_desc
+        $('#description').attr('content',desc)
+        $('#keywords').attr('content',keywords)
+    	},
+    	error: function(res){
+    		console.log(res)
     	}
-    </style>
-  </head>
-
-  <body>
-    <div id="app"></div>
-  </body>
-
-</html>
+    })
+	})
+</script>

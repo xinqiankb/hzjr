@@ -38,7 +38,6 @@
 					if(res.news !='null'){
 						that.article = res.news; 
 					}
-					console.log(res)
 				},
 				error: function(res){
 

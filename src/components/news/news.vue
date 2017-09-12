@@ -118,13 +118,11 @@
 				else{
 					that.nowpage --;
 				}
-				console.log(sendpage)
 				$.ajax({
 					url:API +'page',
 					type:"POST",
 					data:{'id':artid,'page':sendpage,'size':that.pagesize},
 					success:function(res){
-						console.log(res.news)
 						var data = res.news;
 						that.artlist = "";
 						that.artlist = data;
