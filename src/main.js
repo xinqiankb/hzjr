@@ -12,9 +12,9 @@ Vue.use(cddv);
 Vue.config.productionTip = false
 
 // 接口地址
-global.API = 'http://www.rongyi-fund.com/frontend/web/index.php?r=index%2F';
+global.API = 'http://www.ryrk-fund.com/frontend/web/index.php?r=index%2F';
 // 补全图片路径
-global.IMG_URL = 'http://www.rongyi-fund.com/backend/web/';
+global.IMG_URL = 'http://www.ryrk-fund.com/backend/web/';
 
 // 获取数据
 store.dispatch('get_columns');

@@ -5,7 +5,7 @@
         <div class="nav">
             <router-link to="/">
                 <img class="logo" :src="logo" alt="">
-            </router-link>    
+            </router-link>
             <img class="menu" src="./../../static/img/menu.svg" alt="" @click="dropDownBtn">
             <ul class="nav-bar">
                 <li>
@@ -20,7 +20,7 @@
                             </router-link>
                         </div>
                     </div>
-                </li>                
+                </li>
 <!--                 <li ref='li' @mouseover="display(index,item.child.length)" @mouseleave="subHide" @click="activeClass(index,item.child.length)" v-for="(item,index) in columns" :class="{'active':active==index,'no-active':active!=index}" v-show="index!=0">
                     <router-link :class="{'default':index!=0}" class="title" to=''>{{ item.parents[0].name }}</router-link>
                     <div class="sub-column" v-show="active==index" v-bind:style="{ background:color}">
@@ -119,7 +119,7 @@ export default {
         },
         activeClass(i) {
             this.$store.state.active = 0;
-        },        
+        },
         // 移动端是否显示下拉菜单
         dropDownBtn() {
             if (this.dropDown == false) {
@@ -149,7 +149,7 @@ export default {
             if (this.dropDown != false) {
                 this.dropDown = false;
                 this.overlayer = false;
-            }   
+            }
         }
     },
     components: {
@@ -183,7 +183,8 @@ export default {
 .xx{width: 100%}
 .nav {
     width: 1240px;
-    height: 300px;
+    padding-top: 350px;
+    height: auto !important;
     overflow: hidden;
     position: relative;
     margin: 0 auto
@@ -200,7 +201,7 @@ export default {
     display: inline-block;
     position: absolute;
     right: 0rem;
-    top: 3rem;
+    top: 2.3rem;
     width: 700px
 }
 
